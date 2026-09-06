@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Donate | Hatzolah Air</title>
+<meta name="description" content="Choose the right way to donate to Hatzolah Air: Israeli Section 46, U.S. 501(c)(3), or direct to Hatzolah Air."/>
+<style>
+:root {
+  --navy:#0c1d3c;
+  --navy-2:#172d52;
+  --red:#91d100;
+  --red-dark:#74a700;
+  --sky:#f1f6ea;
+  --paper:#f7f8f8;
+  --white:#fff;
+  --ink:#0c1d3c;
+  --muted:#68717c;
+  --line:#d9dde0;
+  --green:#91d100;
+  --green-bg:#f0f9df;
+  --blue:#0c1d3c;
+  --blue-bg:#eef1f5;
+  --amber:#59616b;
+  --amber-bg:#f2f3f4;
+  --silver:#bcc0c3;
+  --shadow:0 18px 55px rgba(12,29,60,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  border-top:5px solid var(--green);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  line-height:1.55;
+}
+a{color:inherit}
+.wrap{max-width:1180px;margin:auto;padding:0 24px}
+.hero{
+  color:#fff;
+  background:
+    radial-gradient(circle at 83% 10%, rgba(145,209,0,.28), transparent 23%),
+    radial-gradient(circle at 95% 86%, rgba(188,192,195,.18), transparent 25%),
+    linear-gradient(135deg,#09172f,#0c1d3c 67%,#172d52);
+  overflow:hidden;position:relative;
+}
+.hero:after{
+  content:"";position:absolute;width:720px;height:720px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.07);right:-330px;bottom:-510px;
+}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:25px 0;gap:20px}
+.brand{font-size:20px;font-weight:950;letter-spacing:.09em}
+.brand b{color:#91d100}
+.entity{font-size:12px;color:#c8d7e7;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 12px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(300px,.7fr);gap:52px;align-items:center;padding:62px 0 76px;position:relative;z-index:2}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.17em;color:#d9f2a7;font-weight:900;margin-bottom:16px}
+h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margin:0 0 22px;max-width:850px}
+.lead{font-size:20px;color:#dce7f2;max-width:760px;margin:0 0 28px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:12px;padding:13px 18px;font-weight:850;text-decoration:none;border:1px solid transparent;
+  transition:.15s ease;cursor:pointer;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-red{background:var(--red);color:var(--navy);box-shadow:0 8px 24px rgba(145,209,0,.22)}
+.btn-white{background:#fff;color:var(--navy)}
+.btn-outline{background:#fff;color:var(--navy);border-color:#cfd8e4}
+.btn-soft{background:#f0f9df;color:#405f00}
+.hero-card{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);border-radius:22px;padding:25px;backdrop-filter:blur(9px)}
+.hero-card h3{font-size:21px;margin:0 0 10px}
+.hero-card p{margin:0;color:#d6e2ef}
+.hero-card .mini{margin-top:18px;display:grid;gap:10px}
+.hero-card .mini div{border-top:1px solid rgba(255,255,255,.12);padding-top:10px;color:#e9f1f8;font-size:13px}
+.section{padding:68px 0}
+.section.alt{background:#fff}
+.section-head{display:flex;justify-content:space-between;gap:25px;align-items:end;margin-bottom:28px}
+.section-head h2{font-size:40px;letter-spacing:-.035em;line-height:1.08;margin:0 0 8px}
+.section-head h2:after{content:"";display:block;width:52px;height:4px;background:var(--green);border-radius:999px;margin-top:12px}
+.section-head p{font-size:17px;color:var(--muted);margin:0;max-width:780px}
+.receipt-badge{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:7px 11px;white-space:nowrap}
+.receipt-isr{background:#eef1f5;color:var(--navy);border:1px solid #d6dbe1}
+.receipt-us{background:#f0f9df;color:#547b00;border:1px solid #cfe69c}
+.receipt-direct{background:#f2f3f4;color:#4c5662;border:1px solid #d7dadd}
+.decision{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:-31px;position:relative;z-index:4}
+.decision a{text-decoration:none}
+.decision-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:19px 20px;box-shadow:var(--shadow);height:100%}
+.decision-card strong{display:block;font-size:17px;margin:7px 0 4px}
+.decision-card span{display:block;color:var(--muted);font-size:13px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:27px;box-shadow:var(--shadow);position:relative}
+.card h3{font-size:25px;letter-spacing:-.025em;margin:0 0 7px}
+.card h4{font-size:17px;margin:0 0 7px}
+.card p{color:var(--muted);margin:0 0 16px}
+.card.featured{border:2px solid var(--green);box-shadow:0 18px 55px rgba(12,29,60,.10),0 0 0 1px rgba(145,209,0,.08)}
+.label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:950;color:#65768b;margin-bottom:11px}
+.method-list{display:grid;gap:10px;margin:18px 0}
+.method{display:grid;grid-template-columns:29px 1fr;gap:9px;align-items:start}
+.icon{
+  width:27px;height:27px;border-radius:8px;background:#eef1f5;display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:950;color:#0c1d3c;
+}
+.method b{display:block;font-size:14px}
+.method small{color:var(--muted);font-size:12px}
+.qr-row{display:flex;align-items:center;gap:18px;margin-top:18px}
+.qr{width:108px;height:108px;border-radius:13px;border:1px solid var(--line);padding:6px;background:#fff}
+.note{font-size:12px;color:#5c6e82;margin-top:13px}
+.details{margin-top:17px;border-top:1px solid var(--line);padding-top:13px}
+.detail{display:grid;grid-template-columns:140px 1fr auto;gap:12px;padding:8px 0;align-items:start}
+.detail .k{font-size:12px;color:var(--muted);font-weight:800}
+.detail .v{font-size:14px;font-weight:800;overflow-wrap:anywhere}
+.copy{border:0;border-radius:8px;background:#eef1f5;color:#0c1d3c;padding:6px 8px;font-size:11px;font-weight:900;cursor:pointer}
+.copy:hover{background:#e5f3c9;color:#405f00}
+.us-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:20px}
+.us-methods{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.us-method{border:1px solid var(--line);border-radius:13px;padding:13px;background:#fbfcfb}
+.us-method b{display:block;font-size:13px;margin-bottom:3px}
+.us-method span{font-size:12px;color:var(--muted)}
+.check-address{background:#f7f9fc;border:1px solid var(--line);border-radius:13px;padding:15px;margin-top:14px;font-size:14px}
+.alert{background:#fff8e8;border:1px solid #ead7a8;border-radius:15px;padding:15px 17px;color:#684b13;font-size:13px;margin-top:18px}
+.good{background:#ecf8f2;border:1px solid #bde5d3;border-radius:15px;padding:15px 17px;color:#185d45;font-size:13px;margin-top:18px}
+.divider-title{display:flex;align-items:center;gap:12px;margin:0 0 18px}
+.divider-title:after{content:"";height:1px;background:var(--line);flex:1}
+.advanced{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.advanced .box{border:1px solid var(--line);background:#fff;border-radius:14px;padding:16px}
+.advanced b{font-size:14px}
+.advanced p{font-size:12px;color:var(--muted);margin:5px 0 0}
+.mission{background:linear-gradient(135deg,#09172f,#0c1d3c);color:#fff}
+.mission-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:50px;align-items:center}
+.mission h2{font-size:42px;line-height:1.05;letter-spacing:-.035em;margin:0 0 14px}
+.mission p{font-size:18px;color:#d5e1ed}
+.pills{display:flex;flex-wrap:wrap;gap:9px}
+.pill{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);padding:9px 12px;border-radius:999px;font-size:13px;font-weight:800}
+.footer{background:#07142a;color:#b7c4d3;padding:28px 0;font-size:12px}
+.footer-row{display:flex;justify-content:space-between;gap:25px;align-items:flex-start}
+.footer strong{color:#fff}
+.rtl{direction:rtl;font-family:Arial,"Noto Sans Hebrew",sans-serif}
+.mono{font-variant-numeric:tabular-nums}
+@media(max-width:900px){
+  .hero-grid,.mission-grid,.us-grid{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .decision{grid-template-columns:1fr;margin-top:18px}
+  .grid-3{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+  .grid-2,.advanced{grid-template-columns:1fr}
+  .section-head{align-items:flex-start;flex-direction:column}
+  .section-head h2{font-size:34px}
+  .us-methods{grid-template-columns:1fr}
+  .footer-row{flex-direction:column}
+}
+@media(max-width:520px){
+  .wrap{padding:0 16px}
+  .hero-grid{padding:42px 0 56px}
+  h1{font-size:46px}
+  .lead{font-size:17px}
+  .hero-actions .btn{width:100%}
+  .detail{grid-template-columns:1fr auto}
+  .detail .k{grid-column:1/-1}
+  .qr-row{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div style="background:#07142b;color:#fff;border-bottom:1px solid rgba(255,255,255,.08)">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding-top:12px;padding-bottom:12px;font-size:13px;font-weight:800">
+    <a href="index.html" style="text-decoration:none;color:#dce7f2">Home</a>
+    <a href="request-flight.html" style="text-decoration:none;color:#dce7f2">Request a Flight</a>
+    <a href="https://app.adler-md.com" style="text-decoration:none;color:#aebccc">Staff CRM</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><a href="index.html" style="color:inherit;text-decoration:none">← HATZOLAH <b>AIR</b></a></div>
+      <div class="entity">Hatzolah Air (R.A.) • 580731198</div>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <div class="kicker">Choose the receipt you need</div>
+        <h1>Support Hatzolah Air. Donate the way that works for you.</h1>
+        <p class="lead">Choose the tax receipt you need: Israeli Section 46 or U.S. 501(c)(3). Each section then shows the available payment methods and donation routes.</p>
+        <div class="hero-actions">
+          <a class="btn btn-red" href="#israel">Israeli tax receipt</a>
+          <a class="btn btn-white" href="#usa">U.S. 501(c)(3) receipt</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <h3>Not sure which option to choose?</h3>
+        <p>Start with the tax receipt you need. Then choose your preferred payment method.</p>
+        <div class="mini">
+          <div><b>Israeli taxpayer?</b><br>Choose the Israeli Section 46 path. Direct donation to Hatzolah Air is listed first.</div>
+          <div><b>U.S. taxpayer?</b><br>Choose the U.S. 501(c)(3) path via JGive USD or America Gives.</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="decision">
+    <a href="#israel"><div class="decision-card"><span class="receipt-badge receipt-isr">🇮🇱 Israeli receipt</span><strong>I need a Section 46 receipt</strong><span>Best starting point: donate directly to Hatzolah Air in ILS.</span></div></a>
+    <a href="#usa"><div class="decision-card"><span class="receipt-badge receipt-us">🇺🇸 U.S. receipt</span><strong>I need a 501(c)(3) receipt</strong><span>JGive USD or America Gives / IsraelGives.</span></div></a>
+    <a href="#direct"><div class="decision-card"><span class="receipt-badge receipt-direct">✈ Direct</span><strong>I want to give directly</strong><span>Direct ILS page, Hatzolah Air bank account, or check.</span></div></a>
+  </div>
+</div>
+
+<main>
+
+
+<section class="section" id="israel">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="receipt-badge receipt-isr">🇮🇱 Israeli Section 46</span>
+        <h2 style="margin-top:12px">Need an Israeli tax-deductible receipt?</h2>
+        <p>For Israeli Section 46 giving, direct donation to Hatzolah Air is the primary option. JGive and IsraelGives are also available as alternative Israeli donation routes.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <article class="card featured">
+        <div class="label">Option 1 • Direct to Hatzolah Air</div>
+        <h3>Donate directly in ILS</h3>
+        <p>Donate directly to Hatzolah Air in Israeli shekels and receive an Israeli Section 46 tax receipt.</p>
+        <div class="method-list">
+          <div class="method"><div class="icon">💳</div><div><b>Credit card</b><small>Use Hatzolah Air’s dedicated direct donation page.</small></div></div>
+          <div class="method"><div class="icon">🏦</div><div><b>Direct bank transfer</b><small>Transfer directly to Hatzolah Air’s Israeli Mizrahi-Tefahot account.</small></div></div>
+          <div class="method"><div class="icon">📬</div><div><b>Check</b><small>Mail a check directly to Hatzolah Air in Israel.</small></div></div>
+        </div>
+        <div class="qr-row">
+          <a class="btn btn-red" href="https://mrng.to/SVpPc5lNal" target="_blank" rel="noopener">Donate directly in ILS</a>
+          <img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAAFKAQAAAABTUiuoAAACFUlEQVR4nO3bQarbMBSF4f9WggxlyALeUuSdlS6pO7CXkgUUrGHA5nQg2y/hQeukOHHh3kkS5xscMJaupMTExuq/bZXg1KlTp06d7kltrgh9A/TNZFCWy+3uAZw+QrMkaQD7PgCUk6wlSJJ0T/cJ4HRLxfm1NJB/ru8EooBBGHcN4PRfaN8E1eHwTQGcbqfSMJl0WWerVwdw+odaRsIkoACkMUISBnC7dn57Vqcz7c3MrAFry0nWlggw1ZbwFQGcbqn6bN1tP00muNr8vO0dwOkDlNqjzx180HxtCFJHkLqFqHt7VqfLrSCIrHG+UdIIpPGOvD2r04WmEXqL0H8s66t8iahLI9a+IIDTDVXnLSMBpF+RPEyR3AGkMRopyPYM4PQZOpm6ErG2nAQEQYlIw6sCOP17zeut3E1Y1rQsv5jivPJiitozgNPnesL6sUsSpLFOWXVCy95lHIuWON+ofIm1MSQPoK4OjPsHcLqhPoc+E8WAdLXabwBYHs74SHgUuu5lqJ6TzLuDJULuwNZF1wGyOq308+y4NoH9h2pPWL9tdw/gdFOtPSFAOQMEWb4YN3sZewZw+kyXsRxozb/LoO7Lfz5gB8rqdK08TLZs6AapS1f/Fc1haPxypZxleThjWUDf+s7TcejXs+N6vjVCb9Q+cdcATh+nN2fHBJk1k9UdjB/NawI43VLm/1pw6tSpU6f/Ef0NXxL1ZUAfGUUAAAAASUVORK5CYII=" alt="QR code to direct Hatzolah Air ILS donation page"/>
+
+        </div>
+        <div class="good"><b>Receipt:</b> Israeli Section 46 receipt from Hatzolah Air.</div>
+      </article>
+
+      <article class="card">
+        <div class="label">Direct bank transfer • Israel</div>
+        <h3>Hatzolah Air bank account</h3>
+        <p>Transfer directly to the amuta and receive an Israeli Section 46 receipt.</p>
+        <div class="details">
+          <div class="detail"><div class="k">Account name</div><div class="v">הצלה אייר (ע"ר)</div><button class="copy" data-copy='הצלה אייר (ע"ר)'>Copy</button></div>
+          <div class="detail"><div class="k">Bank</div><div class="v">Mizrahi-Tefahot</div><button class="copy" data-copy="Mizrahi-Tefahot">Copy</button></div>
+          <div class="detail"><div class="k">Branch</div><div class="v mono">454</div><button class="copy" data-copy="454">Copy</button></div>
+          <div class="detail"><div class="k">Account</div><div class="v mono">278457</div><button class="copy" data-copy="278457">Copy</button></div>
+          <div class="detail"><div class="k">IBAN</div><div class="v mono">IL31 0204 5400 0000 0278 457</div><button class="copy" data-copy="IL310204540000000278457">Copy</button></div>
+          <div class="detail"><div class="k">SWIFT / BIC</div><div class="v mono">MIZBILIT</div><button class="copy" data-copy="MIZBILIT">Copy</button></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grid-3" style="margin-top:20px">
+      <article class="card">
+        <div class="label">Direct check • Israel</div>
+        <h3>Mail a check to Hatzolah Air</h3>
+        <p>Checks sent directly to Hatzolah Air are eligible for an Israeli Section 46 receipt.</p>
+        <div class="check-address">
+          <strong>Payable to:</strong><br>
+          Hatzolah Air (R.A.) / <span class="rtl">הצלה אייר (ע"ר)</span><br><br>
+          <strong>Hatzolah Air mailing address:</strong><br>
+          <span class="rtl">הצלה אייר<br>הזורעים 34<br>אפרת 9045665<br>ישראל</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="label">Option 2 • IsraelGives</div>
+        <h3>IsraelGives — donate in ILS</h3>
+        <p>IsraelGives also supports Israeli Section 46 giving through its Israeli donation route.</p>
+        <div class="method-list">
+          <div class="method"><div class="icon">💳</div><div><b>Credit card</b><small>Secure online donation form.</small></div></div>
+          <div class="method"><div class="icon">P</div><div><b>PayPal</b><small>Available on the Hatzolah Air IsraelGives form.</small></div></div>
+          <div class="method"><div class="icon">🏦</div><div><b>Bank transfer</b><small>Available through the IsraelGives giving flow.</small></div></div>
+        </div>
+        <a class="btn btn-outline" href="https://secured.israelgives.org/pay/makedonation?AmutaGovId=580731198&MakeDonation=1&pp=1" target="_blank" rel="noopener">Donate through IsraelGives</a>
+      </article>
+
+      <article class="card">
+        <div class="label">Option 3 • JGive</div>
+        <h3>JGive — donate in ILS</h3>
+        <p>Select <strong>₪ ILS</strong> on Hatzolah Air’s JGive page to receive an Israeli Section 46 receipt.</p>
+        <div class="method-list">
+          <div class="method"><div class="icon">💳</div><div><b>Credit card</b><small>Online donation with digital receipt.</small></div></div>
+          <div class="method"><div class="icon">🏦</div><div><b>Bank transfer</b><small>Available through JGive’s transfer flow.</small></div></div>
+          <div class="method"><div class="icon">📬</div><div><b>Check</b><small>Available according to JGive’s donation instructions.</small></div></div>
+        </div>
+        <a class="btn btn-outline" href="https://www.jgive.com/new/he/ils/donation-targets/166518" target="_blank" rel="noopener">Donate through JGive</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="usa">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="receipt-badge receipt-us">🇺🇸 U.S. 501(c)(3)</span>
+        <h2 style="margin-top:12px">Need a U.S. tax-deductible receipt?</h2>
+        <p>You have two established routes. Both ultimately support Hatzolah Air Israel, but the U.S. receipt is issued by a U.S. 501(c)(3) partner.</p>
+      </div>
+    </div>
+
+    <div class="us-grid">
+      <article class="card featured">
+        <div class="label">U.S. Route A • JGive</div>
+        <h3>JGive — select USD</h3>
+        <p>JGive states that donations made in <strong>U.S. dollars</strong> receive a U.S. 501(c)(3) tax-deductible receipt issued by <strong>Friends of Asor Fund USA, Inc.</strong></p>
+        <div class="us-methods">
+          <div class="us-method"><b>💳 Credit card</b><span>Minimum $10</span></div>
+          <div class="us-method"><b>🏦 ACH</b><span>Minimum $10</span></div>
+          <div class="us-method"><b>↗ Wire transfer</b><span>Minimum $36; JGive emails U.S. bank details + WT code</span></div>
+          <div class="us-method"><b>📬 Check</b><span>Minimum $36; first register donation and obtain WT code</span></div>
+        </div>
+        <div class="good"><b>Receipt:</b> U.S. 501(c)(3) receipt from Friends of Asor Fund USA, Inc. You must select <strong>USD</strong> before completing the donation.</div>
+        <div style="margin-top:18px"><a class="btn btn-red" href="https://www.jgive.com/new/he/ils/donation-targets/166518" target="_blank" rel="noopener">Use JGive — choose USD</a></div>
+      </article>
+
+      <article class="card">
+        <div class="label">U.S. Route B • America Gives / IsraelGives</div>
+        <h3>America Gives, Inc.</h3>
+        <p>America Gives is IsraelGives’ U.S. 501(c)(3) partner. U.S. donors can support Hatzolah Air by online payment, bank transfer or check.</p>
+
+        <div class="us-methods">
+          <div class="us-method"><b>💳 Credit card</b><span>Use Hatzolah Air’s IsraelGives donation form</span></div>
+          <div class="us-method"><b>🅿 PayPal</b><span>Available through the same secure form</span></div>
+          <div class="us-method"><b>🏦 ACH / bank</b><span>Online ACH is supported for U.S. donations where offered</span></div>
+          <div class="us-method"><b>↗ Wire transfer</b><span>Directly to America Gives U.S. account</span></div>
+          <div class="us-method"><b>📬 Check</b><span>Mail to America Gives in New York</span></div>
+          <div class="us-method"><b>📈 Stocks / securities</b><span>Also supported through IsraelGives / America Gives</span></div>
+        </div>
+
+        <div style="margin-top:18px"><a class="btn btn-outline" href="https://secured.israelgives.org/pay/makedonation?AmutaGovId=580731198&MakeDonation=1&pp=1" target="_blank" rel="noopener">Donate online via America Gives / IsraelGives</a></div>
+      </article>
+    </div>
+
+    <div class="grid-2" style="margin-top:20px">
+      <article class="card">
+        <div class="label">America Gives • U.S. bank transfer / wire</div>
+        <h3>Wire to America Gives</h3>
+        <div class="details">
+          <div class="detail"><div class="k">Account owner</div><div class="v">America Gives, Inc.</div><button class="copy" data-copy="America Gives, Inc.">Copy</button></div>
+          <div class="detail"><div class="k">Account number</div><div class="v mono">761028581678695</div><button class="copy" data-copy="761028581678695">Copy</button></div>
+          <div class="detail"><div class="k">Routing number</div><div class="v mono">121145433</div><button class="copy" data-copy="121145433">Copy</button></div>
+          <div class="detail"><div class="k">Bank</div><div class="v">Column N.A.</div><button class="copy" data-copy="Column N.A.">Copy</button></div>
+          <div class="detail"><div class="k">Bank address</div><div class="v">1 Letterman Drive, Building A, Suite A4-700, San Francisco, CA 94129</div><button class="copy" data-copy="1 Letterman Drive, Building A, Suite A4-700, San Francisco, CA 94129">Copy</button></div>
+          <div class="detail"><div class="k">Designation / memo</div><div class="v">580731198 — Hatzolah Air</div><button class="copy" data-copy="580731198 — Hatzolah Air">Copy</button></div>
+        </div>
+        <div class="note">The Hatzolah Air amuta number in the memo tells America Gives which Israeli nonprofit the gift is designated for.</div>
+      </article>
+
+      <article class="card">
+        <div class="label">America Gives • U.S. check</div>
+        <h3>Mail a U.S. check</h3>
+        <div class="check-address">
+          <strong>Payable to:</strong> America Gives<br><br>
+          <strong>Memo / designation:</strong> 580731198 — Hatzolah Air<br><br>
+          <strong>Mail to:</strong><br>
+          America Gives<br>
+          228 Park Ave S #71410<br>
+          New York, NY 10003-1502
+        </div>
+        <div class="good"><b>Receipt:</b> U.S. tax-deductible receipt through America Gives, Inc. (EIN 26-3383926).</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="divider-title"><h3 style="margin:0;font-size:22px">Other ways to give</h3></div>
+    <div class="advanced">
+      <div class="box"><b>Stocks & securities</b><p>IsraelGives/America Gives and JGive both support advanced giving routes for securities.</p></div>
+      <div class="box"><b>Donor-Advised Funds</b><p>U.S. donors can use eligible DAF routes through the U.S. partner organizations.</p></div>
+      <div class="box"><b>Other countries</b><p>IsraelGives offers local tax-receipt routes in the U.K., Canada, France/EU, Australia and additional jurisdictions.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section mission">
+  <div class="wrap mission-grid">
+    <div>
+      <div class="kicker">Your gift becomes capability</div>
+      <h2>When distance is the emergency, aviation is part of the medicine.</h2>
+      <p>Hatzolah Air connects aviation, emergency medicine and a volunteer network to move patients, medical teams and critical equipment when time matters most.</p>
+    </div>
+    <div class="pills">
+      <div class="pill">Medical air transport</div>
+      <div class="pill">Patient repatriation</div>
+      <div class="pill">Volunteer medical teams</div>
+      <div class="pill">Medical equipment transport</div>
+      <div class="pill">Humanitarian response</div>
+      <div class="pill">Israel-based operations</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-row">
+    <div><strong>Hatzolah Air</strong><br>Hatzolah Air (R.A.) • Amuta 580731198</div>
+    <div style="max-width:600px">Tax treatment depends on the route, donor jurisdiction and current eligibility. Platform-issued receipts are issued by the entity identified in the relevant section above.</div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const v = btn.dataset.copy;
+    try {
+      await navigator.clipboard.writeText(v);
+      const old = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(()=>btn.textContent=old,1200);
+    } catch(e) {
+      window.prompt('Copy:', v);
+    }
+  });
+});
+</script>
+</body>
+</html>

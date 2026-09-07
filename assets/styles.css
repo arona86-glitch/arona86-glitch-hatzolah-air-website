@@ -158,6 +158,16 @@ h2 { margin:0 0 15px; font-size:clamp(34px,4vw,54px); line-height:1.04; letter-s
 .info-row span { color:var(--muted); font-size:14px; }
 .notice { border-left:4px solid var(--lime); background:var(--lime-soft); padding:16px 18px; border-radius:10px; color:#24351b; font-size:14px; }
 
+/* Forms */
+.form-row { margin-bottom:18px; }
+.form-row label { display:block; font-weight:800; font-size:14px; margin-bottom:6px; }
+.form-row input, .form-row textarea {
+  width:100%; font:inherit; padding:11px 13px; border:1px solid var(--line); border-radius:10px;
+  background:#fff; color:var(--ink); resize:vertical;
+}
+.form-row input:focus, .form-row textarea:focus { outline:2px solid var(--lime); outline-offset:1px; }
+.form-row.honeypot { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
 /* Footer */
 .footer { background:#07142b; color:#c6d0dc; padding:38px 0; }
 .footer-row { display:grid; grid-template-columns:1fr auto; gap:28px; align-items:end; }

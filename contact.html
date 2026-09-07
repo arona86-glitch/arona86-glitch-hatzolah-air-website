@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us | Hatzolah Air</title>
+  <meta name="description" content="Get in touch with Hatzolah Air." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="wrap nav-row">
+      <a class="wordmark" href="index.html"><span class="wordmark-mark" aria-hidden="true"></span><span>HATZOLAH AIR</span></a>
+      <button class="mobile-toggle" type="button" aria-expanded="false" aria-label="Open menu">☰</button>
+      <div class="nav-links">
+        <a href="index.html#services">What We Do</a>
+        <a href="contact.html">Contact</a>
+        <a href="donate.html">Donate</a>
+        <a class="staff" data-link="crm" href="https://app.adler-md.com">Staff CRM</a>
+        <a class="nav-cta" href="request-flight.html">Request a Flight</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">Get in touch</div>
+      <h1>Contact Us</h1>
+      <p>General questions, partnership inquiries, or anything else on your mind — send us a message below. For an active medical transport request, use <a href="request-flight.html" style="color:#d9f2a7">Request a Flight</a> instead; this form is not monitored for time-sensitive mission requests.</p>
+    </div>
+  </header>
+
+  <main class="section white">
+    <div class="wrap" style="max-width:640px">
+      <section class="request-box">
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required maxlength="200" autocomplete="name" />
+          </div>
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required maxlength="200" autocomplete="email" />
+          </div>
+          <div class="form-row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" required maxlength="5000"></textarea>
+          </div>
+          <div class="form-row honeypot" aria-hidden="true">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="actions" style="margin-top:8px">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </div>
+          <p id="form-status" role="status" style="margin-top:16px;font-size:14px"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-row">
+      <div><strong>Hatzolah Air</strong><br />Hatzolah Air (R.A.) · Amuta 580731198</div>
+      <div class="footer-links"><a href="index.html">Home</a><a href="request-flight.html">Request a Flight</a><a href="donate.html">Donate</a><a data-link="crm" href="https://app.adler-md.com">Staff CRM</a></div>
+    </div>
+  </footer>
+
+  <script src="assets/site.js"></script>
+  <script>
+    (() => {
+      const form = document.getElementById("contact-form");
+      const status = document.getElementById("form-status");
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        status.textContent = "";
+
+        const data = Object.fromEntries(new FormData(form).entries());
+        if (data.company) return; // honeypot filled in — silently drop, likely a bot
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+
+        try {
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ name: data.name, email: data.email, message: data.message }),
+          });
+          const result = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(result.error || "Something went wrong. Please try again.");
+
+          status.style.color = "#185d45";
+          status.textContent = "Thanks — your message has been sent. We'll get back to you soon.";
+          form.reset();
+        } catch (err) {
+          status.style.color = "#9a3412";
+          status.textContent = err.message || "Something went wrong. Please try again.";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Send Message";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

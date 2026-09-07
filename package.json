@@ -1,0 +1,7 @@
+{
+  "name": "hatzolah-air-website",
+  "private": true,
+  "dependencies": {
+    "worker-mailer": "^1.2.1"
+  }
+}

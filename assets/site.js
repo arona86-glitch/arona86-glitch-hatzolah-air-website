@@ -2,14 +2,9 @@
  * Central website link configuration — the CRM lives at app.hatzolahair.org.il.
  */
 window.HATZOLAH_SITE = {
-/*
- * Central website link configuration — the CRM lives at app.hatzolahair.org.il.
- */
-window.HATZOLAH_SITE = {
   crmUrl: "https://app.hatzolahair.org.il",
   flightRequestUrl: "https://app.hatzolahair.org.il/request",
   flightDayUrl: "https://app.hatzolahair.org.il/flight-day"
-};
 };
 
 document.addEventListener("DOMContentLoaded", () => {

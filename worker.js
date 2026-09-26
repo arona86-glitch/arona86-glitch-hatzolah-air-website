@@ -1,5 +1,4 @@
 import { sendMail } from "./src/mail.js";
-import { handleFlightDay } from "./src/flight-day.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_LENGTHS = { name: 200, email: 200, message: 5000 };
@@ -13,10 +12,6 @@ export default {
         return jsonResponse({ error: "Method not allowed." }, 405);
       }
       return handleContact(request, env);
-    }
-
-    if (url.pathname.startsWith("/api/flight-day/")) {
-      return handleFlightDay(request, env, url);
     }
 
     return env.ASSETS.fetch(request);

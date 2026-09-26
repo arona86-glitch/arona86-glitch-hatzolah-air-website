@@ -5,14 +5,17 @@
 window.HATZOLAH_SITE = {
   crmUrl: "https://app.adler-md.com",
   flightRequestUrl: "https://app.adler-md.com/request",
+  flightDayUrl: "https://app.adler-md.com/flight-day",
   futureCrmUrl: "https://app.hatzolahair.org.il",
-  futureFlightRequestUrl: "https://app.hatzolahair.org.il/request"
+  futureFlightRequestUrl: "https://app.hatzolahair.org.il/request",
+  futureFlightDayUrl: "https://app.hatzolahair.org.il/flight-day"
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   const cfg = window.HATZOLAH_SITE;
   document.querySelectorAll('[data-link="crm"]').forEach(a => a.href = cfg.crmUrl);
   document.querySelectorAll('[data-link="flight-request"]').forEach(a => a.href = cfg.flightRequestUrl);
+  document.querySelectorAll('[data-link="flight-day"]').forEach(a => a.href = cfg.flightDayUrl);
 
   const toggle = document.querySelector(".mobile-toggle");
   const links = document.querySelector(".nav-links");

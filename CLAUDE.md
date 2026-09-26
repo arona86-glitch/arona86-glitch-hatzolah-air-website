@@ -84,23 +84,8 @@ This starter is plain HTML/CSS/JS and can be deployed easily to Vercel, Cloudfla
 
 ## Jerusalem Flight Day (`/flight-day`)
 
-Unlisted, `noindex` donor registration page for the helicopter flight day on
-Thu 1 Oct 2026 at the Herzog Medical Center helipad. Files: `flight-day.html`,
-`assets/flight-day.{css,js}`, `src/flight-day.js` (API), `src/mail.js`.
-
-- 23 slots, every 20 min 10:00–17:40, 14:20 left out as a break; 8 seats each.
-  Schedule/date live in `EVENT`/`SLOTS` in `src/flight-day.js` (mirrored in
-  `assets/flight-day.js` as a fallback).
-- Each booking → a subfolder (passport files + a "Booking summary" Google Doc)
-  inside Drive folder `FLIGHT_DAY_DRIVE_FOLDER_ID` (set in `wrangler.jsonc`).
-- Seat counts + booking records: KV namespace `hatzolah-flight-day` (binding `FLIGHT_DAY`).
-- Signups are **pending** (seats held, guest gets a "request received" email). Staff
-  confirm / move / cancel at `/flight-day-admin` (password = `FLIGHT_DAY_ADMIN_KEY`);
-  each action can email the guest. Cancelled bookings free their seats.
-- Ops manifest CSV (active bookings): `/api/flight-day/manifest?key=<FLIGHT_DAY_ADMIN_KEY>`.
-
-Worker secrets needed (`wrangler secret put …`):
-`GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_OAUTH_REFRESH_TOKEN`
-(same values as the CRM's uploads — that Google account must have edit access to
-the Drive folder), `FLIGHT_DAY_ADMIN_KEY`, optionally `FLIGHT_DAY_NOTIFY_EMAIL`.
-Emails reuse `GMAIL_USER` / `GMAIL_APP_PASSWORD`.
+Unlisted, `noindex` information page for the donor helicopter flight day
+(Thu 1 Oct 2026, Herzog Medical Center helipad). Like `request-flight.html`, it
+does not collect data itself: the "Register" buttons link to the CRM's public
+form (`flightDayUrl` in `assets/site.js`), which stores bookings, uploads
+passports to Drive, emails guests and gives staff the approval page.

@@ -14,12 +14,16 @@ export async function sendMail(env, { to, replyTo, subject, text, html, fromName
     },
   });
 
-  await mailer.send({
-    from: { name: fromName, email: env.GMAIL_USER },
-    to: { email: to },
-    ...(replyTo ? { replyTo } : {}),
-    subject,
-    text,
-    ...(html ? { html } : {}),
-  });
+  try {
+    await mailer.send({
+      from: { name: fromName, email: env.GMAIL_USER },
+      to: { email: to },
+      ...(replyTo ? { reply: replyTo } : {}), // worker-mailer calls the Reply-To field `reply`
+      subject,
+      text,
+      ...(html ? { html } : {}),
+    });
+  } finally {
+    await mailer.close();
+  }
 }

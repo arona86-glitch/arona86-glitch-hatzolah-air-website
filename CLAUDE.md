@@ -17,17 +17,10 @@ Do not deploy or change DNS automatically. Aaron wants to review and iterate fir
 The CRM is a separate Next.js/Vercel application and already has a live public inquiry route at `/request`.
 The public website should **link to that intake flow**, not reimplement the medical form in this static project.
 
-Current links used here:
-
-- Staff CRM: `https://app.adler-md.com`
-- Public flight request: `https://app.adler-md.com/request`
-
-Planned future links after DNS is ready:
+Links used here (set in `assets/site.js`):
 
 - Staff CRM: `https://app.hatzolahair.org.il`
 - Public flight request: `https://app.hatzolahair.org.il/request`
-
-When the new subdomain is ready, update `assets/site.js` only.
 
 ## Design direction
 
@@ -65,8 +58,7 @@ Still needed:
 3. Decide whether to create full About / Fleet / News / Volunteer pages.
 4. Create a proper Hebrew version with RTL design.
 5. Add reviewed Privacy Policy / Terms / accessibility statement as appropriate.
-6. Change the CRM link to `app.hatzolahair.org.il` once that DNS/subdomain is configured.
-7. Final mobile, accessibility, SEO and legal copy review.
+6. Final mobile, accessibility, SEO and legal copy review.
 
 ## How to preview locally
 

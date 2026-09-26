@@ -94,7 +94,10 @@ Thu 1 Oct 2026 at the Herzog Medical Center helipad. Files: `flight-day.html`,
 - Each booking → a subfolder (passport files + a "Booking summary" Google Doc)
   inside Drive folder `FLIGHT_DAY_DRIVE_FOLDER_ID` (set in `wrangler.jsonc`).
 - Seat counts + booking records: KV namespace `hatzolah-flight-day` (binding `FLIGHT_DAY`).
-- Ops manifest CSV: `/api/flight-day/manifest?key=<FLIGHT_DAY_ADMIN_KEY>`.
+- Signups are **pending** (seats held, guest gets a "request received" email). Staff
+  confirm / move / cancel at `/flight-day-admin` (password = `FLIGHT_DAY_ADMIN_KEY`);
+  each action can email the guest. Cancelled bookings free their seats.
+- Ops manifest CSV (active bookings): `/api/flight-day/manifest?key=<FLIGHT_DAY_ADMIN_KEY>`.
 
 Worker secrets needed (`wrangler secret put …`):
 `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_OAUTH_REFRESH_TOKEN`

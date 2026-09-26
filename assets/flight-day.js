@@ -298,7 +298,7 @@
       status.textContent = err.message;
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = "Reserve seats";
+      submitBtn.textContent = "Request seats";
       setTimeout(() => { progress.hidden = true; $("i", progress).style.width = "0"; }, 600);
     }
   });
@@ -306,8 +306,8 @@
   function showDone(passengers, email) {
     form.hidden = true;
     const done = $("#fd-done");
-    $("#fd-done-title").textContent = `See you at ${selected}`;
-    $("#fd-done-body").textContent = `Thursday, 1 October 2026 · Herzog Medical Center helipad, Jerusalem. A confirmation has been sent to ${email}.`;
+    $("#fd-done-title").textContent = `Seats held on the ${selected} flight`;
+    $("#fd-done-body").textContent = `Thursday, 1 October 2026 · Herzog Medical Center helipad, Jerusalem. We've emailed ${email} — you'll hear from us again once your booking is confirmed.`;
     $("#fd-done-list").replaceChildren(...passengers.map((p) => Object.assign(document.createElement("li"), { textContent: p.name })));
     done.hidden = false;
     done.focus();

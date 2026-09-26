@@ -1,0 +1,96 @@
+/* Flight Day admin — builds on styles.css + flight-day.css */
+
+.fda { background:var(--paper); }
+.fda-tag { color:#aebccc; font-size:13px; font-weight:700; letter-spacing:.04em; }
+.fda-signout { margin-left:auto; font:inherit; font-size:13px; font-weight:700; color:#dce4ee; background:transparent; border:1px solid rgba(255,255,255,.25); border-radius:9px; padding:7px 12px; cursor:pointer; }
+.fda-signout:hover { color:#fff; border-color:#fff; }
+.fda-main { padding:40px 0 80px; min-height:70vh; }
+.fda h1 { font-size:clamp(30px,4vw,44px); margin:0 0 6px; }
+
+.fda-login { max-width:460px; }
+.fda-login-error { color:#c2410c; font-size:14px; font-weight:700; margin:12px 0 0; }
+.fda-login-error:empty { display:none; }
+
+.fda-head { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:24px; }
+.fda-head-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.fda-head-actions .btn { font-family:inherit; font-size:14px; padding:10px 14px; cursor:pointer; }
+
+.fda-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.fda-stat { font:inherit; text-align:left; background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 18px; color:var(--ink); }
+button.fda-stat { cursor:pointer; }
+button.fda-stat:hover { border-color:var(--navy); }
+.fda-stat b { display:block; font-size:30px; font-weight:900; letter-spacing:-.03em; line-height:1.1; }
+.fda-stat span { font-size:13px; color:var(--muted); font-weight:600; }
+.fda-stat.is-pending b { color:#b45309; }
+.fda-stat.is-confirmed b { color:var(--lime-dark); }
+
+.fda-toolbar { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+.fda-filters { display:inline-flex; padding:3px; border-radius:11px; background:#fff; border:1px solid var(--line); }
+.fda-filters button { font:inherit; font-size:13px; font-weight:800; border:0; background:transparent; color:var(--muted); padding:7px 13px; border-radius:8px; cursor:pointer; }
+.fda-filters button[aria-selected="true"] { background:var(--navy); color:#fff; }
+#fda-search { flex:1; min-width:200px; font:inherit; font-size:14px; padding:9px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; }
+#fda-search:focus { outline:2px solid var(--lime); outline-offset:1px; }
+.fda-notify { display:flex; align-items:center; gap:7px; font-size:13px; font-weight:700; color:var(--muted); cursor:pointer; }
+.fda-notify input { accent-color:var(--navy); width:16px; height:16px; }
+.fda-msg { min-height:1.2em; margin:0 0 10px; font-size:14px; font-weight:700; }
+.fda-msg.ok { color:var(--lime-dark); }
+.fda-msg.err { color:#c2410c; }
+
+/* Timeline */
+.fda-slot { background:#fff; border:1px solid var(--line); border-radius:18px; margin-bottom:12px; overflow:hidden; }
+.fda-slot-head { display:grid; grid-template-columns:86px 1fr auto; align-items:center; gap:16px; padding:14px 18px; }
+.fda-slot-time { font-size:24px; font-weight:900; letter-spacing:-.02em; }
+.fda-bar { height:8px; border-radius:99px; background:var(--paper); overflow:hidden; display:flex; }
+.fda-bar i { display:block; height:100%; }
+.fda-bar .c { background:var(--lime-dark); }
+.fda-bar .p { background:#f59e0b; }
+.fda-slot-meta { font-size:13px; font-weight:700; color:var(--muted); white-space:nowrap; }
+.fda-slot-meta b { color:var(--ink); }
+.fda-slot.over { border-color:#fca5a5; }
+.fda-slot.over .fda-slot-meta { color:#c2410c; }
+.fda-slot.empty .fda-slot-head { padding:10px 18px; }
+.fda-slot.empty .fda-slot-time { font-size:18px; color:var(--muted); }
+.fda-break { text-align:center; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:18px 0; }
+
+.fda-bk { border-top:1px solid var(--line); padding:16px 18px 18px; display:grid; grid-template-columns:1fr auto; gap:14px 20px; }
+.fda-bk.cancelled { background:#fafafa; }
+.fda-bk.cancelled .fda-bk-main { opacity:.55; }
+.fda-bk-top { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.fda-bk-name { font-size:17px; font-weight:850; }
+.fda-chip { font-size:11px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; padding:4px 9px; border-radius:99px; }
+.fda-chip.pending { background:#fef3c7; color:#92400e; }
+.fda-chip.confirmed { background:var(--lime-soft); color:#3f5f00; }
+.fda-chip.cancelled { background:#f3f4f6; color:#6b7280; }
+.fda-bk-contact { display:flex; gap:14px; flex-wrap:wrap; font-size:13px; color:var(--muted); margin-top:5px; }
+.fda-bk-contact a { color:var(--navy); font-weight:700; text-decoration:none; }
+.fda-bk-contact a:hover { text-decoration:underline; }
+.fda-pax { width:100%; border-collapse:collapse; margin-top:12px; font-size:14px; }
+.fda-pax th { text-align:left; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:800; padding:6px 8px; border-bottom:1px solid var(--line); }
+.fda-pax td { padding:7px 8px; border-bottom:1px solid #eef1f4; }
+.fda-pax td.num, .fda-pax th.num { text-align:right; font-variant-numeric:tabular-nums; }
+.fda-pax tfoot td { font-weight:800; border-bottom:0; }
+.fda-notes { margin:10px 0 0; font-size:13px; background:var(--paper); border-radius:10px; padding:9px 12px; }
+.fda-history { margin:8px 0 0; font-size:12px; color:var(--muted); }
+
+.fda-actions { display:flex; flex-direction:column; gap:8px; min-width:190px; }
+.fda-actions button, .fda-actions select, .fda-actions a { font:inherit; font-size:13px; font-weight:800; border-radius:10px; padding:9px 12px; cursor:pointer; text-align:center; text-decoration:none; }
+.fda-confirm { background:var(--lime); color:var(--navy); border:0; }
+.fda-confirm:hover { background:#a0e509; }
+.fda-cancel { background:#fff; color:#b91c1c; border:1px solid #fecaca; }
+.fda-cancel:hover { background:#fef2f2; }
+.fda-move { display:flex; gap:6px; }
+.fda-move select { flex:1; min-width:0; border:1px solid var(--line); background:#fff; color:var(--ink); padding:9px 8px; font-weight:700; }
+.fda-move button { background:#fff; border:1px solid #bfc7d1; color:var(--navy); }
+.fda-move button:hover { border-color:var(--navy); }
+.fda-drive { background:var(--paper); color:var(--navy); border:1px solid var(--line); }
+.fda-actions button:disabled { opacity:.5; cursor:wait; }
+.fda-empty-state { text-align:center; padding:50px 20px; color:var(--muted); background:#fff; border:1px dashed var(--line); border-radius:18px; }
+
+@media (max-width: 760px) {
+  .fda-stats { grid-template-columns:repeat(2,1fr); }
+  .fda-slot-head { grid-template-columns:64px 1fr; }
+  .fda-slot-meta { grid-column:1 / -1; }
+  .fda-bk { grid-template-columns:1fr; }
+  .fda-actions { min-width:0; }
+  .fda-tag { display:none; }
+}

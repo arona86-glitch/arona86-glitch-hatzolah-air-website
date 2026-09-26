@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flight Day Admin | Hatzolah Air</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0c1d3c" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/flight-day.css" />
+  <link rel="stylesheet" href="assets/flight-day-admin.css" />
+</head>
+<body class="fd fda">
+  <nav class="site-nav" aria-label="Admin navigation">
+    <div class="wrap nav-row">
+      <a class="wordmark" href="flight-day.html" aria-label="Flight Day page">
+        <img class="wordmark-mark" src="assets/hatzolah-logo.svg" alt="" aria-hidden="true" />
+        <span>HATZOLAH AIR</span>
+      </a>
+      <span class="fda-tag">Flight Day · Admin</span>
+      <button type="button" class="fda-signout" id="fda-signout" hidden>Sign out</button>
+    </div>
+  </nav>
+
+  <main class="fda-main">
+    <!-- Sign in -->
+    <section class="wrap fda-login" id="fda-login">
+      <form class="request-box" id="fda-login-form">
+        <div class="kicker">Staff only</div>
+        <h1>Flight Day admin</h1>
+        <p class="fd-help" style="margin-left:0">Enter the Flight Day admin password to review and confirm bookings.</p>
+        <div class="form-row">
+          <label for="fda-key">Admin password</label>
+          <input id="fda-key" type="password" autocomplete="current-password" required />
+        </div>
+        <button class="btn btn-primary fd-submit" type="submit">Sign in</button>
+        <p class="fda-login-error" id="fda-login-error" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="wrap fda-dash" id="fda-dash" hidden>
+      <header class="fda-head">
+        <div>
+          <div class="kicker">Thursday, 1 October 2026 · Herzog helipad</div>
+          <h1>Jerusalem Flight Day</h1>
+        </div>
+        <div class="fda-head-actions">
+          <button type="button" class="btn btn-outline" id="fda-refresh">↻ Refresh</button>
+          <a class="btn btn-dark" id="fda-csv" href="#">Download manifest (CSV)</a>
+        </div>
+      </header>
+
+      <div class="fda-stats">
+        <button type="button" class="fda-stat is-pending" data-filter="pending"><b id="st-pending">0</b><span>Awaiting approval</span></button>
+        <button type="button" class="fda-stat is-confirmed" data-filter="confirmed"><b id="st-confirmed">0</b><span>Confirmed groups</span></button>
+        <div class="fda-stat"><b id="st-pax">0</b><span>Passengers (active)</span></div>
+        <div class="fda-stat"><b id="st-seats">0 / 184</b><span>Seats held</span></div>
+      </div>
+
+      <div class="fda-toolbar">
+        <div class="fda-filters" role="tablist" aria-label="Filter bookings">
+          <button type="button" role="tab" data-filter="all" aria-selected="true">All</button>
+          <button type="button" role="tab" data-filter="pending" aria-selected="false">Pending</button>
+          <button type="button" role="tab" data-filter="confirmed" aria-selected="false">Confirmed</button>
+          <button type="button" role="tab" data-filter="cancelled" aria-selected="false">Cancelled</button>
+        </div>
+        <input type="search" id="fda-search" placeholder="Search name, email, phone or ref…" aria-label="Search bookings" />
+        <label class="fda-notify"><input type="checkbox" id="fda-notify" checked /> Email guests about changes</label>
+      </div>
+
+      <p class="fda-msg" id="fda-msg" role="status"></p>
+      <div id="fda-timeline"></div>
+    </section>
+  </main>
+
+  <script src="assets/flight-day-admin.js"></script>
+</body>
+</html>

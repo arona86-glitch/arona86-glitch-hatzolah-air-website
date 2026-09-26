@@ -3,13 +3,19 @@
  *
  *   GET  /api/flight-day/slots     seats left per time slot
  *   POST /api/flight-day/register  multipart form: contact + passengers + passport files
- *   GET  /api/flight-day/manifest  CSV of all bookings (needs ?key=FLIGHT_DAY_ADMIN_KEY)
+ *   GET  /api/flight-day/manifest  CSV of active bookings (needs ?key=FLIGHT_DAY_ADMIN_KEY)
+ *   GET  /api/flight-day/admin/bookings       all bookings (x-admin-key header)
+ *   POST /api/flight-day/admin/bookings/:id   { action: confirm | cancel | move, slot?, notify? }
+ *
+ * A new signup is "pending": it holds its seats straight away and the guest is told
+ * we'll confirm. Staff confirm, cancel or move it from /flight-day-admin; cancelled
+ * bookings free their seats.
  *
  * Passports and a booking summary go to Google Drive (one subfolder per booking)
  * using the same OAuth refresh-token setup as the CRM's Drive uploads. Seat counts
  * live in the FLIGHT_DAY KV namespace. KV is eventually consistent, so two groups
  * booking the last seats of one slot in the same minute can both get through —
- * the manifest shows it and ops can move one group.
+ * the admin page shows the overbooking and staff can move one group.
  */
 
 import { sendMail } from "./mail.js";
@@ -50,6 +56,13 @@ export async function handleFlightDay(request, env, url) {
   if (route === "register" && request.method === "POST") return register(request, env);
   if (route === "manifest" && request.method === "GET") return manifest(env, url);
 
+  if (route.startsWith("admin/")) {
+    if (!isAdmin(env, request.headers.get("x-admin-key"))) return json({ error: "Not authorized." }, 401);
+    if (route === "admin/bookings" && request.method === "GET") return adminList(env);
+    const m = route.match(/^admin\/bookings\/([\w-]+)$/);
+    if (m && request.method === "POST") return adminUpdate(request, env, m[1]);
+  }
+
   return json({ error: "Not found." }, 404);
 }
 
@@ -71,6 +84,7 @@ async function seatsTaken(env) {
   const taken = Object.fromEntries(SLOTS.map((s) => [s, 0]));
   for (const key of await listBookings(env)) {
     const slot = key.metadata?.slot;
+    if (key.metadata?.status === "cancelled") continue;
     if (slot in taken) taken[slot] += Number(key.metadata?.pax) || 0;
   }
   return taken;
@@ -201,37 +215,33 @@ async function register(request, env) {
   const record = {
     id,
     slot,
+    status: "pending",
     createdAt: new Date().toISOString(),
     contact,
     passengers: passengers.map(({ name, age, weightKg }) => ({ name, age, weightKg })),
     totalKg,
+    driveFolderId: folder.id,
     driveFolderUrl: folder.webViewLink,
   };
-  if (env.FLIGHT_DAY) {
-    await env.FLIGHT_DAY.put(`booking:${slot}:${id}`, JSON.stringify(record), {
-      metadata: { slot, pax: passengers.length },
-    });
-  }
+  if (env.FLIGHT_DAY) await saveBooking(env, record);
 
-  await notify(env, record).catch((err) => console.error("Flight day: email failed:", err));
+  await notifyNew(env, record, new URL(request.url).origin).catch((err) => console.error("Flight day: email failed:", err));
 
-  return json({ ok: true, id, slot, passengers: passengers.length });
+  return json({ ok: true, id, slot, status: "pending", passengers: passengers.length });
 }
 
 /* ---------- Manifest (ops) ---------- */
 
 async function manifest(env, url) {
-  if (!env.FLIGHT_DAY_ADMIN_KEY || url.searchParams.get("key") !== env.FLIGHT_DAY_ADMIN_KEY) {
-    return json({ error: "Not authorized." }, 401);
-  }
+  if (!isAdmin(env, url.searchParams.get("key"))) return json({ error: "Not authorized." }, 401);
 
-  const rows = [["Flight", "Booking", "Passenger", "Age", "Weight (kg)", "Contact", "Phone", "Email", "Drive folder", "Registered"]];
+  const rows = [["Flight", "Status", "Booking", "Passenger", "Age", "Weight (kg)", "Contact", "Phone", "Email", "Drive folder", "Registered"]];
   const keys = (await listBookings(env)).sort((a, b) => a.name.localeCompare(b.name));
   for (const key of keys) {
     const b = JSON.parse((await env.FLIGHT_DAY.get(key.name)) ?? "null");
-    if (!b) continue;
+    if (!b || b.status === "cancelled") continue;
     for (const p of b.passengers) {
-      rows.push([b.slot, b.id, p.name, p.age, p.weightKg, b.contact.name, b.contact.phone, b.contact.email, b.driveFolderUrl, b.createdAt]);
+      rows.push([b.slot, b.status ?? "pending", b.id, p.name, p.age, p.weightKg, b.contact.name, b.contact.phone, b.contact.email, b.driveFolderUrl, b.createdAt]);
     }
   }
   const csv = "﻿" + rows.map((r) => r.map(csvCell).join(",")).join("\r\n");
@@ -316,34 +326,149 @@ ${contact.notes ? `<p><i>Notes:</i> ${esc(contact.notes).replace(/\n/g, "<br>")}
 </body></html>`;
 }
 
-async function notify(env, b) {
+async function notifyNew(env, b, origin) {
   if (!env.GMAIL_USER || !env.GMAIL_APP_PASSWORD) return;
 
-  const list = b.passengers.map((p) => `${p.name} (${p.age}, ${p.weightKg} kg)`);
-  const opsTo = env.FLIGHT_DAY_NOTIFY_EMAIL || env.CONTACT_TO_EMAIL || env.GMAIL_USER;
-
   await sendMail(env, {
-    to: opsTo,
+    to: env.FLIGHT_DAY_NOTIFY_EMAIL || env.CONTACT_TO_EMAIL || env.GMAIL_USER,
     replyTo: { name: b.contact.name, email: b.contact.email },
-    subject: `Flight Day ${b.slot} — ${b.contact.name} (${b.passengers.length} pax)`,
+    subject: `Flight Day request ${b.slot} — ${b.contact.name} (${b.passengers.length} pax) — needs approval`,
     text:
-      `New Flight Day registration (${b.id})\n\nFlight: ${b.slot}\nContact: ${b.contact.name} · ${b.contact.phone} · ${b.contact.email}\n\n` +
-      `Passengers:\n${list.map((l, i) => `${i + 1}. ${l}`).join("\n")}\nTotal weight: ${Math.round(b.totalKg * 10) / 10} kg\n\n` +
+      `New Flight Day request (${b.id}) — pending your approval.\n\n` +
+      `Flight: ${b.slot}\nContact: ${b.contact.name} · ${b.contact.phone} · ${b.contact.email}\n\n` +
+      `Passengers:\n${b.passengers.map((p, i) => `${i + 1}. ${p.name} (${p.age}, ${p.weightKg} kg)`).join("\n")}\n` +
+      `Total weight: ${Math.round(b.totalKg * 10) / 10} kg\n\n` +
       (b.contact.notes ? `Notes: ${b.contact.notes}\n\n` : "") +
-      `Passports: ${b.driveFolderUrl}`,
+      `Passports: ${b.driveFolderUrl}\n\nConfirm, move or cancel: ${origin}/flight-day-admin`,
   });
 
+  await guestMail(env, b,
+    `Request received — ${EVENT.name}, ${b.slot}`,
+    `Thank you for registering for the ${EVENT.name}. We've received your request and are holding ` +
+    `${b.passengers.length === 1 ? "a seat" : `${b.passengers.length} seats`} for you on the ${b.slot} flight.\n\n` +
+    `Our team will review it and email you a confirmation shortly.`
+  );
+}
+
+async function guestMail(env, b, subject, intro, extra = "") {
+  if (!env.GMAIL_USER || !env.GMAIL_APP_PASSWORD) return;
   await sendMail(env, {
     to: b.contact.email,
-    subject: `You're registered — ${EVENT.name}, ${b.slot}`,
+    subject,
     text:
-      `Dear ${b.contact.name},\n\nThank you for registering for the ${EVENT.name}.\n\n` +
+      `Dear ${b.contact.name},\n\n${intro}\n\n` +
       `Date: ${EVENT.dateLabel}\nFlight time: ${b.slot}\nLocation: ${EVENT.location}\n\n` +
       `Passengers:\n${b.passengers.map((p, i) => `${i + 1}. ${p.name}`).join("\n")}\n\n` +
-      `Please arrive at least 20 minutes before your flight and bring the original passport or ID for every passenger.\n` +
-      `Flights are subject to weather and operational conditions; our team will contact you if anything changes.\n\n` +
+      extra +
       `Booking reference: ${b.id}\n\nWith thanks,\nHatzolah Air`,
   });
+}
+
+const CONFIRMED_NOTE =
+  `Please arrive at least 20 minutes before your flight and bring the original passport or ID for every passenger.\n` +
+  `Flights are subject to weather and operational conditions; our team will contact you if anything changes.\n\n`;
+
+/* ---------- Admin ---------- */
+
+function isAdmin(env, key) {
+  const expected = env.FLIGHT_DAY_ADMIN_KEY;
+  if (!expected || !key || key.length !== expected.length) return false;
+  let diff = 0;
+  for (let i = 0; i < key.length; i++) diff |= key.charCodeAt(i) ^ expected.charCodeAt(i);
+  return diff === 0;
+}
+
+async function saveBooking(env, b) {
+  await env.FLIGHT_DAY.put(`booking:${b.slot}:${b.id}`, JSON.stringify(b), {
+    metadata: { slot: b.slot, pax: b.passengers.length, status: b.status, id: b.id },
+  });
+}
+
+async function findBooking(env, id) {
+  const key = (await listBookings(env)).find((k) => k.metadata?.id === id || k.name.endsWith(`:${id}`));
+  if (!key) return null;
+  const b = JSON.parse((await env.FLIGHT_DAY.get(key.name)) ?? "null");
+  return b && { key: key.name, booking: b };
+}
+
+async function adminList(env) {
+  if (!env.FLIGHT_DAY) return json({ error: "Booking storage isn't configured." }, 500);
+  const keys = await listBookings(env);
+  const bookings = [];
+  for (const k of keys) {
+    const b = JSON.parse((await env.FLIGHT_DAY.get(k.name)) ?? "null");
+    if (b) bookings.push({ status: "pending", ...b });
+  }
+  bookings.sort((a, b) => a.slot.localeCompare(b.slot) || a.createdAt.localeCompare(b.createdAt));
+  return json({ event: EVENT, slots: SLOTS, bookings }, 200, { "cache-control": "no-store" });
+}
+
+async function adminUpdate(request, env, id) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ error: "Invalid request." }, 400);
+  }
+  const found = await findBooking(env, id);
+  if (!found) return json({ error: "Booking not found." }, 404);
+  const { key, booking: b } = found;
+  const notify = body.notify !== false;
+  const now = new Date().toISOString();
+  let mail = null;
+
+  if (body.action === "confirm") {
+    if (b.status === "cancelled") {
+      const taken = await seatsTaken(env);
+      if (b.passengers.length > EVENT.seatsPerFlight - taken[b.slot]) {
+        return json({ error: `Not enough free seats on ${b.slot} to reinstate this booking. Move it instead.` }, 409);
+      }
+    }
+    b.status = "confirmed";
+    b.confirmedAt = now;
+    mail = [`Confirmed — ${EVENT.name}, ${b.slot}`, `We're delighted to confirm your flight on the ${EVENT.name}.`, CONFIRMED_NOTE];
+  } else if (body.action === "cancel") {
+    b.status = "cancelled";
+    b.cancelledAt = now;
+    mail = [`Cancelled — ${EVENT.name}, ${b.slot}`, `Your booking for the ${b.slot} flight has been cancelled. If you weren't expecting this, just reply to this email.`];
+  } else if (body.action === "move") {
+    const to = String(body.slot ?? "");
+    if (!SLOTS.includes(to)) return json({ error: "Please choose a valid flight time." }, 400);
+    if (to === b.slot) return json({ error: "The booking is already on that flight." }, 400);
+    const taken = await seatsTaken(env);
+    const free = EVENT.seatsPerFlight - taken[to];
+    if (b.passengers.length > free) return json({ error: `Only ${Math.max(0, free)} seats free on ${to}.` }, 409);
+    const from = b.slot;
+    b.slot = to;
+    if (b.status === "cancelled") b.status = "pending";
+    b.movedAt = now;
+    b.history = [...(b.history ?? []), { from, to, at: now }];
+    await env.FLIGHT_DAY.delete(key);
+    await renameDriveFolder(env, b).catch((err) => console.error("Flight day: folder rename failed:", err));
+    mail = [
+      `New flight time ${to} — ${EVENT.name}`,
+      `Your flight time has changed from ${from} to ${to}.` + (b.status === "pending" ? " Your booking is still awaiting final confirmation." : ""),
+      b.status === "confirmed" ? CONFIRMED_NOTE : "",
+    ];
+  } else {
+    return json({ error: "Unknown action." }, 400);
+  }
+
+  await saveBooking(env, b);
+  if (notify && mail) await guestMail(env, b, ...mail).catch((err) => console.error("Flight day: email failed:", err));
+  return json({ ok: true, booking: b });
+}
+
+async function renameDriveFolder(env, b) {
+  if (!b.driveFolderId || !env.GOOGLE_OAUTH_REFRESH_TOKEN) return;
+  const token = await googleAccessToken(env);
+  const surname = b.contact.name.split(/\s+/).pop();
+  const res = await fetch(`https://www.googleapis.com/drive/v3/files/${b.driveFolderId}?supportsAllDrives=true`, {
+    method: "PATCH",
+    headers: { authorization: `Bearer ${token}`, "content-type": "application/json" },
+    body: JSON.stringify({ name: `${b.slot.replace(":", "")} · ${surname} · ${b.passengers.length} pax · ${b.id}` }),
+  });
+  if (!res.ok) throw new Error(`Drive rename ${res.status}`);
 }
 
 /* ---------- helpers ---------- */

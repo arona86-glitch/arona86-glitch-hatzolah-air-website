@@ -99,7 +99,7 @@
         <div class="section-head">
           <div class="kicker">Reserve your seats</div>
           <h2>Register your group</h2>
-          <p>One registration per group — we only need contact details for one person. For every passenger we need a full name, age, weight and a copy of their passport.</p>
+          <p>One registration per group — we only need contact details for one person. Your seats are held as soon as you submit, and we'll email you to confirm. For every passenger we need a full name, age, weight and a copy of their passport.</p>
         </div>
 
         <form id="fd-form" class="fd-layout" novalidate>
@@ -179,7 +179,7 @@
                 <input type="checkbox" id="consent" name="consent" value="yes" required />
                 <span>I confirm these details are accurate and that I'm authorised to register every passenger listed, including minors in my care. I agree that Hatzolah Air may use this information for flight safety and security purposes.</span>
               </label>
-              <button type="submit" class="btn btn-primary fd-submit" id="fd-submit">Reserve seats</button>
+              <button type="submit" class="btn btn-primary fd-submit" id="fd-submit">Request seats</button>
               <div class="fd-progress" id="fd-progress" hidden><i></i></div>
               <p class="fd-status" id="fd-status" role="alert"></p>
               <p class="fd-fine">Passport copies are stored in Hatzolah Air's secure Google Drive and used only for this event. <a href="privacy.html">Privacy policy</a>.</p>
@@ -189,11 +189,11 @@
 
         <div class="fd-done" id="fd-done" hidden tabindex="-1">
           <div class="fd-done-mark" aria-hidden="true">✓</div>
-          <div class="kicker">You're booked</div>
-          <h2 id="fd-done-title">See you at 10:00</h2>
+          <div class="kicker">Request received</div>
+          <h2 id="fd-done-title">Seats held on the 10:00 flight</h2>
           <p id="fd-done-body"></p>
           <ul id="fd-done-list"></ul>
-          <div class="notice">Please arrive at least 20 minutes before your flight and bring the original passport or ID for every passenger. Flights depend on weather and operational conditions — we'll be in touch if anything changes.</div>
+          <div class="notice">Our team will review your request and email you a confirmation shortly. On the day, please arrive at least 20 minutes before your flight and bring the original passport or ID for every passenger.</div>
           <div class="actions" style="margin-top:22px">
             <button type="button" class="btn btn-outline" id="fd-another">Register another group</button>
           </div>

@@ -6,5 +6,14 @@
   "assets": {
     "directory": "./",
     "binding": "ASSETS"
+  },
+  // Seat counts + booking records for the Jerusalem Flight Day (/flight-day).
+  "kv_namespaces": [
+    { "binding": "FLIGHT_DAY", "id": "7dd1a293a8cf41f6b82065bfca2450e5" }
+  ],
+  "vars": {
+    // "Jerusalem Flight Day – Thu 1 Oct 2026 – Registrations" in the Hatzolah Air
+    // Drive (הצלה אייר ישראל › Branding, Events › אירועי סוכות 2026).
+    "FLIGHT_DAY_DRIVE_FOLDER_ID": "1P9iqjVdIkwWbL1pePI7_N0qpBhoGcb5_"
   }
 }

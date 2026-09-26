@@ -1,4 +1,5 @@
-import { WorkerMailer } from "worker-mailer";
+import { sendMail } from "./src/mail.js";
+import { handleFlightDay } from "./src/flight-day.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_LENGTHS = { name: 200, email: 200, message: 5000 };
@@ -12,6 +13,10 @@ export default {
         return jsonResponse({ error: "Method not allowed." }, 405);
       }
       return handleContact(request, env);
+    }
+
+    if (url.pathname.startsWith("/api/flight-day/")) {
+      return handleFlightDay(request, env, url);
     }
 
     return env.ASSETS.fetch(request);
@@ -48,22 +53,10 @@ async function handleContact(request, env) {
   const to = env.CONTACT_TO_EMAIL || env.GMAIL_USER;
 
   try {
-    const mailer = await WorkerMailer.connect({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      startTls: true,
-      authType: "plain",
-      credentials: {
-        username: env.GMAIL_USER,
-        password: env.GMAIL_APP_PASSWORD,
-      },
-    });
-
-    await mailer.send({
-      from: { name: "Hatzolah Air Website", email: env.GMAIL_USER },
-      to: { email: to },
+    await sendMail(env, {
+      to,
       replyTo: { name, email },
+      fromName: "Hatzolah Air Website",
       subject: `Website contact form: ${name}`,
       text: `From: ${name} <${email}>\n\n${message}`,
       html: `<p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p><p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>`,

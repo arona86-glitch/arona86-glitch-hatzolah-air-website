@@ -15,6 +15,6 @@ python -m http.server 8080
 ```
 
 ### Integration links
-Edit `assets/site.js` when the CRM moves from `app.adler-md.com` to `app.hatzolahair.org.il`.
+CRM links (`app.hatzolahair.org.il`) are set in `assets/site.js`.
 
 See `CLAUDE.md` for the full handoff and next-step instructions.

@@ -45,6 +45,7 @@
 .fd-need ul { margin:0; padding:0; list-style:none; display:grid; gap:10px; }
 .fd-need li { display:flex; gap:10px; align-items:flex-start; color:#dce4ee; font-size:15px; }
 .fd-need li::before { content:"✓"; flex:none; width:22px; height:22px; border-radius:50%; background:rgba(145,209,0,.18); color:var(--lime); display:grid; place-items:center; font-size:12px; font-weight:900; margin-top:1px; }
+.fd-sponsor { margin:0; padding:0 16px 40px; background:var(--paper); text-align:center; color:var(--muted); font-size:14px; }
 .fd-steps-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px; }
 
 @media (max-width: 980px) {

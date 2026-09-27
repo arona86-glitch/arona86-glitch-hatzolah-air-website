@@ -4,7 +4,10 @@
    transfer is a full-bleed scene behind the mission cards, and the operations
    center sits behind the registration section. */
 
-.fd-nav-cta { margin-left:auto; white-space:nowrap; text-decoration:none; font-size:14px; font-weight:800; color:var(--navy); background:var(--lime); padding:10px 14px; border-radius:10px; }
+/* A quiet outlined link beside Register — present, not pushy */
+.fd-nav-donate { margin-left:auto; margin-right:-12px; white-space:nowrap; text-decoration:none; font-size:14px; font-weight:700; color:#dce7f1; border:1px solid rgba(255,255,255,.25); padding:9px 14px; border-radius:999px; }
+.fd-nav-donate:hover { color:#fff; border-color:var(--lime); }
+.fd-nav-cta { white-space:nowrap; text-decoration:none; font-size:14px; font-weight:800; color:var(--navy); background:var(--lime); padding:10px 14px; border-radius:10px; }
 .fd-nav-cta:hover { background:#a0e509; }
 
 /* Photo scenes: fixed backgrounds (a gentle parallax) on desktop only — iOS/touch
@@ -117,6 +120,7 @@
 .fd-pass-stub a { color:inherit; text-decoration:none; border-bottom:2px solid var(--lime); }
 .fd-pass-stub a:hover { color:var(--navy); }
 .fd-sponsor { margin:0; padding:0 16px 40px; background:var(--paper); text-align:center; color:var(--muted); font-size:14px; }
+.fd-sponsor a { color:var(--navy); font-weight:700; text-decoration:underline; text-decoration-color:var(--lime); text-decoration-thickness:2px; text-underline-offset:4px; }
 .fd-steps-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px; }
 .fd-map { grid-column:1 / -1; }
 
@@ -135,6 +139,16 @@
   .fd-stack { height:520px; max-width:620px; }
   .fd-scene-head { margin-bottom:200px; }
   .fd-glass-row { grid-template-columns:1fr; }
+}
+/* Phones: Donate and Register share the nav with the wordmark */
+@media (max-width: 480px) {
+  .fd .nav-row { gap:12px; }
+  .fd .wordmark span { font-size:13px; }
+  .fd-nav-donate { margin-right:-4px; padding:7px 11px; font-size:13px; }
+  .fd-nav-cta { padding:8px 11px; font-size:13px; }
+}
+@media (max-width: 380px) {
+  .fd .wordmark span { display:none; }
 }
 @media (max-width: 760px) {
   .fd-steps-row { grid-template-columns:1fr; }

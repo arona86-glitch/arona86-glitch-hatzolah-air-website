@@ -1,19 +1,37 @@
-/* Jerusalem Flight Day — builds on styles.css */
+/* Jerusalem Flight Day — builds on styles.css.
+   The page is built around Hatzolah Air photos: the helicopter on the Herzog pad
+   fills the hero, a layered "stack" of prints sits beside the intro, the patient
+   transfer is a full-bleed scene behind the mission cards, and the operations
+   center sits behind the registration section. */
 
 .fd-nav-cta { margin-left:auto; white-space:nowrap; text-decoration:none; font-size:14px; font-weight:800; color:var(--navy); background:var(--lime); padding:10px 14px; border-radius:10px; }
 .fd-nav-cta:hover { background:#a0e509; }
 
-/* Hero */
-.fd-hero-grid { position:relative; z-index:2; display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:64px; padding:80px 0 88px; }
-.fd-accent { color:var(--lime); }
-/* Hero photo: the helicopter on the Herzog pad, under a navy wash so text and the pass stay legible */
-.hero.fd-hero {
-  background:
-    radial-gradient(circle at 85% 12%, rgba(145,209,0,.22), transparent 28%),
-    linear-gradient(100deg, rgba(7,20,43,.95) 0%, rgba(12,29,60,.82) 42%, rgba(12,29,60,.38) 100%),
-    url("photos/flight-day/helicopter-herzog-pad.jpg") center 60% / cover no-repeat;
+/* Photo scenes: fixed backgrounds (a gentle parallax) on desktop only — iOS/touch
+   browsers render background-attachment:fixed badly, so they scroll normally. */
+.fd-scene { position:relative; background-size:cover; background-position:center; background-repeat:no-repeat; }
+@media (hover:hover) and (pointer:fine) and (min-width:981px) {
+  .fd-scene, .hero.fd-hero { background-attachment:fixed; }
 }
-.fd-hero h1 { font-weight:900; }
+
+/* Hero: the helicopter on the Herzog pad, full screen */
+.hero.fd-hero {
+  min-height:calc(100vh - 79px);
+  display:flex; align-items:center;
+  overflow:visible; z-index:2; /* lets the boarding pass overlap the next section */
+  background:
+    linear-gradient(0deg, rgba(7,20,43,.55) 0%, rgba(7,20,43,0) 28%),
+    linear-gradient(95deg, rgba(7,20,43,.94) 0%, rgba(12,29,60,.78) 38%, rgba(12,29,60,.18) 72%, rgba(12,29,60,.05) 100%),
+    url("photos/flight-day/helicopter-herzog-pad.jpg") 62% 58% / cover no-repeat;
+}
+.hero.fd-hero::after { display:none; }
+.fd-hero-grid { position:relative; z-index:3; width:min(var(--wrap), calc(100% - 48px)); display:grid; grid-template-columns:1.05fr .95fr; align-items:end; gap:64px; padding:72px 0 0; }
+.fd-hero-grid > div:first-child { padding-bottom:110px; }
+.fd-accent { color:var(--lime); }
+.fd-hero h1 { font-weight:900; text-shadow:0 4px 30px rgba(0,0,0,.35); }
+.fd-hero .hero-copy { text-shadow:0 2px 16px rgba(0,0,0,.4); }
+/* The pass sits in front of the photo and hangs over the edge into the next section */
+.fd-hero .fd-pass { margin-bottom:-90px; }
 
 .fd-pass { position:relative; color:var(--navy); background:#fff; border-radius:24px; box-shadow:0 30px 80px rgba(0,0,0,.32); overflow:hidden; transform:rotate(.8deg); }
 .fd-pass-top { display:flex; align-items:center; gap:12px; padding:18px 22px; background:var(--navy-3); color:#fff; border-bottom:4px solid var(--lime); }
@@ -38,22 +56,43 @@
 .fd-pass-stub::after { right:-10px; }
 .fd-barcode { width:120px; height:30px; background:repeating-linear-gradient(90deg, var(--navy) 0 2px, transparent 2px 4px, var(--navy) 4px 5px, transparent 5px 8px, var(--navy) 8px 11px, transparent 11px 13px); }
 
-.fd-three { grid-template-columns:repeat(3,1fr); }
+/* Intro: text with a layered stack of prints */
+.fd-intro { padding-top:150px; overflow:hidden; }
+.fd-intro-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center; }
+.fd-intro .section-head { margin-bottom:0; }
+.fd-intro-more { margin-top:18px !important; color:var(--ink) !important; font-size:18px; font-weight:600; }
+.fd-stack { position:relative; height:520px; }
+.fd-stack img { position:absolute; display:block; object-fit:cover; border:8px solid #fff; border-radius:18px; box-shadow:0 26px 60px rgba(12,29,60,.28); }
+.fd-stack-back { right:0; top:0; width:68%; height:92%; object-position:center 45%; transform:rotate(3deg); }
+.fd-stack-front { left:0; bottom:0; width:66%; height:44%; transform:rotate(-4deg); z-index:2; }
+.fd-stack-accent { position:absolute; left:14%; top:10%; width:62%; height:62%; border-radius:26px; background:var(--lime); opacity:.9; transform:rotate(-8deg); }
 
-/* About: text with the helicopter beside it */
-.fd-about { display:grid; grid-template-columns:1.3fr .7fr; gap:48px; align-items:center; margin-bottom:36px; }
-.fd-about .section-head { margin-bottom:0; }
-.fd-about-photo { width:100%; height:420px; object-fit:cover; object-position:center 40%; border-radius:var(--radius); box-shadow:var(--shadow); display:block; }
+/* Mission: the patient transfer, full bleed, with glass cards in front */
+.fd-scene-mission {
+  padding:130px 0 120px; color:#fff;
+  background-image:
+    linear-gradient(180deg, rgba(7,20,43,.82) 0%, rgba(7,20,43,.45) 45%, rgba(7,20,43,.88) 100%),
+    url("photos/flight-day/patient-transfer.jpg");
+  background-position:center 40%;
+}
+.fd-scene-head { max-width:820px; margin-bottom:44px; }
+.fd-scene-head .kicker { color:#d9f2a7; }
+.fd-scene-head h2 { color:#fff; font-size:clamp(34px,4.4vw,58px); text-shadow:0 4px 30px rgba(0,0,0,.45); }
+.fd-glass-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.fd-glass { padding:26px; border-radius:var(--radius); background:rgba(7,20,43,.55); border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+.fd-glass .card-icon { background:rgba(145,209,0,.18); color:var(--lime); }
+.fd-glass h3 { margin:0 0 10px; font-size:20px; letter-spacing:-.02em; color:#fff; }
+.fd-glass p { margin:0; color:#d6e0ea; font-size:14px; }
 
-/* Full-width photo strip */
-.fd-band { position:relative; margin:0; height:420px; overflow:hidden; background:var(--navy); }
-.fd-band img { width:100%; height:100%; object-fit:cover; object-position:center 45%; display:block; }
-.fd-band figcaption { position:absolute; left:0; right:0; bottom:0; padding:60px 0 26px; background:linear-gradient(0deg, rgba(4,16,34,.85), rgba(4,16,34,0)); }
-.fd-band figcaption span { display:block; width:min(var(--wrap), calc(100% - 48px)); margin:0 auto; color:#fff; font-size:clamp(18px,2.2vw,26px); font-weight:800; letter-spacing:-.01em; }
-
-/* Register (links to the secure CRM form) */
-.fd-register { background:var(--paper); }
-.fd-cta { display:grid; grid-template-columns:1.1fr .9fr; gap:34px; align-items:center; padding:36px; border-radius:26px; background:linear-gradient(120deg, rgba(9,24,47,.97) 0%, rgba(12,29,60,.93) 55%, rgba(23,45,82,.78) 100%), url("photos/flight-day/jet-n18h.jpg") center / cover no-repeat; color:#fff; box-shadow:var(--shadow); }
+/* Register: the operations center behind the whole section */
+.fd-scene-base {
+  background-image:
+    linear-gradient(180deg, rgba(246,248,250,.2) 0%, rgba(246,248,250,.82) 30%, rgba(246,248,250,.97) 55%),
+    url("photos/flight-day/operations-center.jpg");
+  background-position:center top; background-size:100% 100%, 100% auto;
+  padding-top:120px;
+}
+.fd-cta { display:grid; grid-template-columns:1.1fr .9fr; gap:34px; align-items:center; padding:36px; border-radius:26px; background:linear-gradient(120deg, rgba(9,24,47,.96), rgba(23,45,82,.9)); color:#fff; box-shadow:0 30px 80px rgba(12,29,60,.35); }
 .fd-cta h2 { color:#fff; font-size:clamp(30px,3.6vw,44px); }
 .fd-cta p { color:#cbd6e2; margin:0 0 22px; }
 .fd-cta .btn { font-size:17px; padding:15px 22px; }
@@ -69,8 +108,6 @@
 .fd-location h3 { margin:0 0 4px; font-size:20px; letter-spacing:-.02em; }
 .fd-location p { margin:0; color:var(--muted); font-size:15px; }
 .fd-location .kicker { margin-bottom:6px; }
-.fd-location-media { grid-column:1 / -1; display:grid; grid-template-columns:.8fr 1.2fr; gap:14px; }
-.fd-location-media img { width:100%; height:320px; object-fit:cover; border-radius:14px; display:block; }
 .fd-map { width:100%; height:320px; border:0; border-radius:14px; background:var(--paper); }
 .fd-location p.fd-location-he { display:inline-block; max-width:100%; margin-top:6px; text-align:right; }
 .fd-location p.fd-parking { margin-top:8px; color:var(--ink); font-weight:600; }
@@ -78,23 +115,34 @@
 .fd-pass-stub a:hover { color:var(--navy); }
 .fd-sponsor { margin:0; padding:0 16px 40px; background:var(--paper); text-align:center; color:var(--muted); font-size:14px; }
 .fd-steps-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px; }
+.fd-map { grid-column:1 / -1; }
 
 @media (max-width: 980px) {
-  .fd-hero-grid { grid-template-columns:1fr; gap:44px; padding:60px 0 70px; }
+  .hero.fd-hero {
+    min-height:0;
+    background:
+      linear-gradient(180deg, rgba(7,20,43,.9) 0%, rgba(12,29,60,.72) 55%, rgba(12,29,60,.55) 100%),
+      url("photos/flight-day/helicopter-herzog-pad.jpg") 68% center / cover no-repeat;
+  }
+  .fd-hero-grid { grid-template-columns:1fr; gap:40px; padding:56px 0 0; }
+  .fd-hero-grid > div:first-child { padding-bottom:0; }
   .fd-pass { transform:none; max-width:560px; }
   .fd-cta { grid-template-columns:1fr; }
-  .fd-about { grid-template-columns:1fr; gap:28px; }
-  .fd-about-photo { height:320px; }
+  .fd-intro-grid { grid-template-columns:1fr; gap:36px; }
+  .fd-stack { height:440px; max-width:560px; }
+  .fd-glass-row { grid-template-columns:1fr; }
 }
 @media (max-width: 760px) {
-  .fd-three, .fd-steps-row { grid-template-columns:1fr; }
+  .fd-steps-row { grid-template-columns:1fr; }
   .fd-pass-route b { font-size:34px; }
   .fd-pass-grid { grid-template-columns:repeat(2,1fr); gap:0 14px; }
   .fd-cta { padding:26px 20px; }
   .fd-location { grid-template-columns:auto 1fr; }
   .fd-location .btn { grid-column:1 / -1; }
   .fd-map { height:240px; }
-  .fd-location-media { grid-template-columns:1fr; }
-  .fd-location-media img { height:200px; }
-  .fd-band { height:280px; }
+  .fd-intro { padding-top:130px; }
+  .fd-stack { height:340px; }
+  .fd-stack img { border-width:6px; }
+  .fd-scene-mission { padding:90px 0 80px; }
+  .fd-scene-base { padding-top:80px; }
 }

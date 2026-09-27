@@ -7,7 +7,7 @@ Do not deploy or change DNS automatically. Aaron wants to review and iterate fir
 
 - `index.html` — new public homepage.
 - `request-flight.html` — branded bridge to the **existing secure CRM public intake form**.
-- `donate.html` — incorporates the previously created Hatzolah Air donation page, including Israeli Section 46 and U.S. 501(c)(3) routes.
+- `donate.html` — the donation page (Israeli Section 46 and U.S. 501(c)(3) routes). Self-contained styles, but uses the shared site nav, logo and `site.js`, and reuses the Flight Day photos in `assets/photos/flight-day/`.
 - `assets/styles.css` — shared homepage/request styles using Hatzolah Air navy + lime branding.
 - `assets/site.js` — central place to change CRM/request URLs.
 - `assets/favicon.svg` — simple temporary brand favicon.

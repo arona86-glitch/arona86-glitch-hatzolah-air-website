@@ -40,10 +40,11 @@ img, svg { max-width: 100%; }
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
-.nav-row { min-height: 74px; display:flex; align-items:center; gap:24px; }
-.wordmark { text-decoration:none; display:flex; align-items:center; gap:11px; font-weight:950; letter-spacing:.055em; white-space:nowrap; }
-.wordmark-mark { height:36px; width:auto; display:block; }
-.wordmark span:last-child { font-size:17px; }
+.nav-row { min-height: 84px; display:flex; align-items:center; gap:24px; }
+.wordmark { text-decoration:none; display:flex; align-items:center; gap:12px; white-space:nowrap; flex-shrink:0; }
+.wordmark-mark { height:48px; width:auto; display:block; }
+/* The badge's own lettering (silver HATZOLAH, lime AIR), cut from the logo as vectors */
+.wordmark-text { height:30px; width:auto; display:block; }
 .nav-links { margin-left:auto; display:flex; align-items:center; gap:24px; font-size:14px; font-weight:750; }
 .nav-links a { text-decoration:none; color:#dce4ee; }
 .nav-links a:hover { color:#fff; }
@@ -227,15 +228,26 @@ h2 { margin:0 0 15px; font-size:clamp(34px,4vw,54px); line-height:1.04; letter-s
   .cta-band { grid-template-columns:1fr; }
   .cta-band .actions { justify-content:flex-start; }
 }
-@media (max-width: 760px) {
-  .photo-banner-jet { height:auto; }
-  .photo-banner-jet img { height:auto; aspect-ratio:3/2; }
-  .wrap { width:min(var(--wrap), calc(100% - 32px)); }
+/* Smaller screens: the wordmark steps down so the menu still fits beside it */
+@media (max-width: 1240px) {
+  .wordmark-mark { height:42px; }
+  .wordmark-text { height:24px; }
+  /* The full menu no longer fits beside the wordmark — use the ☰ menu from here down */
   .mobile-toggle { display:block; }
-  .nav-links { display:none; position:absolute; left:0; right:0; top:74px; background:#07142b; padding:18px 24px 24px; flex-direction:column; align-items:stretch; gap:15px; border-top:1px solid rgba(255,255,255,.08); }
+  .nav-links { display:none; position:absolute; left:0; right:0; top:84px; background:#07142b; padding:18px 24px 24px; flex-direction:column; align-items:stretch; gap:15px; border-top:1px solid rgba(255,255,255,.08); }
   .nav-links.open { display:flex; }
   .nav-links a { padding:7px 0; }
   .nav-links .nav-cta { text-align:center; padding:11px 14px; }
+}
+@media (max-width: 760px) {
+  .nav-row { min-height:72px; }
+  .wordmark { gap:10px; }
+  .wordmark-mark { height:38px; }
+  .wordmark-text { height:22px; }
+  .photo-banner-jet { height:auto; }
+  .photo-banner-jet img { height:auto; aspect-ratio:3/2; }
+  .wrap { width:min(var(--wrap), calc(100% - 32px)); }
+  .nav-links { top:72px; }
   .services, .process, .fleet-grid, .team-grid { grid-template-columns:1fr; }
   .vision-grid { grid-template-columns:1fr; }
   .trust-row { grid-template-columns:1fr; }

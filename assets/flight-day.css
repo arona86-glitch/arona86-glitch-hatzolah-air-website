@@ -143,12 +143,15 @@
 /* Phones: Donate and Register share the nav with the wordmark */
 @media (max-width: 480px) {
   .fd .nav-row { gap:12px; }
-  .fd .wordmark span { font-size:13px; }
+  .fd .wordmark { gap:8px; }
+  .fd .wordmark-mark { height:30px; }
+  .fd .wordmark-text { height:15px; }
   .fd-nav-donate { margin-right:-4px; padding:7px 11px; font-size:13px; }
   .fd-nav-cta { padding:8px 11px; font-size:13px; }
 }
 @media (max-width: 380px) {
-  .fd .wordmark span { display:none; }
+  .fd .wordmark-mark { height:26px; }
+  .fd .wordmark-text { height:12px; }
 }
 @media (max-width: 760px) {
   .fd-steps-row { grid-template-columns:1fr; }

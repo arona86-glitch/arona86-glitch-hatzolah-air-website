@@ -57,10 +57,11 @@ a{color:inherit}
 }
 /* Site navigation — the same bar as the rest of the website */
 .site-nav{position:sticky;top:0;z-index:100;background:rgba(7,20,43,.96);color:#fff;backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
-.nav-row{min-height:74px;display:flex;align-items:center;gap:24px}
-.wordmark{text-decoration:none;display:flex;align-items:center;gap:11px;font-weight:950;letter-spacing:.055em;white-space:nowrap}
-.wordmark-mark{height:36px;width:auto;display:block}
-.wordmark span:last-child{font-size:17px}
+.nav-row{min-height:84px;display:flex;align-items:center;gap:24px}
+.wordmark{text-decoration:none;display:flex;align-items:center;gap:12px;white-space:nowrap;flex-shrink:0}
+.wordmark-mark{height:48px;width:auto;display:block}
+/* The badge's own lettering (silver HATZOLAH, lime AIR), cut from the logo as vectors */
+.wordmark-text{height:30px;width:auto;display:block}
 .nav-links{margin-left:auto;display:flex;align-items:center;gap:24px;font-size:14px;font-weight:750}
 .nav-links a{text-decoration:none;color:#dce4ee}
 .nav-links a:hover,.nav-links a[aria-current]{color:#fff}
@@ -171,9 +172,12 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
 .footer strong{color:#fff}
 .rtl{direction:rtl;font-family:Arial,"Noto Sans Hebrew",sans-serif}
 .mono{font-variant-numeric:tabular-nums}
-@media(max-width:980px){
+@media(max-width:1100px){
   .mobile-toggle{display:block}
-  .nav-links{display:none;position:absolute;left:0;right:0;top:74px;background:#07142b;padding:18px 24px 24px;flex-direction:column;align-items:stretch;gap:15px;border-top:1px solid rgba(255,255,255,.08)}
+  .nav-row{min-height:72px}
+  .wordmark-mark{height:40px}
+  .wordmark-text{height:22px}
+  .nav-links{display:none;position:absolute;left:0;right:0;top:72px;background:#07142b;padding:18px 24px 24px;flex-direction:column;align-items:stretch;gap:15px;border-top:1px solid rgba(255,255,255,.08)}
   .nav-links.open{display:flex}
   .nav-links a{padding:7px 0}
   .nav-links a[aria-current]{box-shadow:none;color:var(--green)}
@@ -198,7 +202,9 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
 }
 @media(max-width:520px){
   .wrap{padding:0 16px}
-  .wordmark span:last-child{font-size:15px}
+  .wordmark{gap:10px}
+  .wordmark-mark{height:36px}
+  .wordmark-text{height:20px}
   .photo-band figcaption{padding:24px 0 20px}
   .photo-band img{height:280px;object-position:35% center}
   .photo-band.hq img{height:300px;object-position:30% 60%}
@@ -220,7 +226,7 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
   <div class="wrap nav-row">
     <a class="wordmark" href="index.html" aria-label="Hatzolah Air home">
       <img class="wordmark-mark" src="assets/hatzolah-logo.svg" alt="" aria-hidden="true"/>
-      <span>HATZOLAH AIR</span>
+      <img class="wordmark-text" src="assets/hatzolah-wordmark.svg" alt="Hatzolah Air"/>
     </a>
     <button class="mobile-toggle" type="button" aria-expanded="false" aria-label="Open menu">☰</button>
     <div class="nav-links">

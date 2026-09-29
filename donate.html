@@ -183,6 +183,10 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
 .advanced a{color:var(--navy);font-weight:700}
 .hint{font-size:13px!important;color:#405f00!important;margin-top:-8px!important}
 .bank{margin-top:20px;scroll-margin-top:100px}
+.help-strip{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px 22px}
+.help-strip b{display:block;font-size:16px}
+.help-strip span{color:var(--muted);font-size:14px}
+.help-strip .btn{flex-shrink:0}
 .bank-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
 .bank .details{margin-top:0;border-top:0;padding-top:0}
 .rtl{direction:rtl;font-family:Arial,"Noto Sans Hebrew",sans-serif}
@@ -231,7 +235,7 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
   .hero-actions .btn{width:100%}
   .detail{grid-template-columns:1fr auto}
   .detail .k{grid-column:1/-1}
-  .qr-row,.wire{align-items:flex-start;flex-direction:column}
+  .qr-row,.wire,.help-strip{align-items:flex-start;flex-direction:column}
 }
 </style>
 </head>
@@ -378,6 +382,11 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
         </div>
       </div>
     </article>
+
+    <div class="help-strip">
+      <div><b>Problem with your donation?</b><span>If it didn't go through or something went wrong, send us a message and we'll get back to you as soon as possible.</span></div>
+      <a class="btn btn-outline" href="contact.html?topic=donation">Contact us</a>
+    </div>
   </div>
 </section>
 
@@ -392,7 +401,7 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
     <div class="advanced">
       <div class="box"><b>Card transaction limit</b><p>For card security and processing reasons, some card donations may be limited to approximately ₪50,000 per transaction. Larger gifts can be split into multiple transactions or made by bank transfer, including <a href="#bank">directly to Hatzolah Air</a>.</p></div>
       <div class="box"><b>Other countries</b><p>America Gives / IsraelGives may also offer tax-receipted giving routes in other countries. Availability can change; contact us for the appropriate route.</p></div>
-      <div class="box"><b>Need help?</b><p>For assistance with a donation, bank transfer, or the correct tax-receipt route, contact Dr. Aaron Adler at <a href="mailto:aaron.adler@hatzolahair.org">aaron.adler@hatzolahair.org</a> or <a href="tel:+972548187101">+972 54 818 7101</a>.</p></div>
+      <div class="box"><b>Need help?</b><p>If a donation didn't go through, or you need help with a bank transfer or the correct tax-receipt route, <a href="contact.html?topic=donation">contact us</a> and we'll get back to you as soon as possible.</p></div>
     </div>
   </div>
 </section>

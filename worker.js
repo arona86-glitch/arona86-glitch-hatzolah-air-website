@@ -1,7 +1,8 @@
 import { sendMail } from "./src/mail.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const MAX_LENGTHS = { name: 200, email: 200, message: 5000 };
+const MAX_LENGTHS = { name: 200, email: 200, phone: 50, message: 5000 };
+const TOPICS = { general: "Website contact form", donation: "Donation help request" };
 
 export default {
   async fetch(request, env) {
@@ -29,6 +30,8 @@ async function handleContact(request, env) {
   const name = String(body.name ?? "").trim();
   const email = String(body.email ?? "").trim();
   const message = String(body.message ?? "").trim();
+  const phone = String(body.phone ?? "").trim();
+  const topicLabel = TOPICS[body.topic] || TOPICS.general;
 
   if (!name || !email || !message) {
     return jsonResponse({ error: "Name, email, and message are required." }, 400);
@@ -36,7 +39,7 @@ async function handleContact(request, env) {
   if (!EMAIL_RE.test(email)) {
     return jsonResponse({ error: "Please enter a valid email address." }, 400);
   }
-  if (name.length > MAX_LENGTHS.name || email.length > MAX_LENGTHS.email || message.length > MAX_LENGTHS.message) {
+  if (name.length > MAX_LENGTHS.name || email.length > MAX_LENGTHS.email || phone.length > MAX_LENGTHS.phone || message.length > MAX_LENGTHS.message) {
     return jsonResponse({ error: "One of the fields is too long." }, 400);
   }
 
@@ -52,9 +55,9 @@ async function handleContact(request, env) {
       to,
       replyTo: { name, email },
       fromName: "Hatzolah Air Website",
-      subject: `Website contact form: ${name}`,
-      text: `From: ${name} <${email}>\n\n${message}`,
-      html: `<p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p><p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>`,
+      subject: `${topicLabel}: ${name}`,
+      text: `From: ${name} <${email}>${phone ? `\nPhone: ${phone}` : ""}\n\n${message}`,
+      html: `<p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>${phone ? `<p><strong>Phone:</strong> ${escapeHtml(phone)}</p>` : ""}<p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>`,
     });
   } catch (err) {
     console.error("Contact form send failed:", err);

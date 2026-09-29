@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Donate | Hatzolah Air</title>
-<meta name="description" content="Choose the right way to donate to Hatzolah Air: Israeli Section 46, U.S. 501(c)(3), or direct to Hatzolah Air."/>
+<meta name="description" content="Donate to Hatzolah Air through JGive or IsraelGives / America Gives, with an Israeli Section 46 or U.S. 501(c)(3) receipt."/>
 <meta name="theme-color" content="#0c1d3c"/>
 <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png" />
 <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192" type="image/png" />
@@ -170,6 +170,17 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
 .footer{background:#07142a;color:#b7c4d3;padding:28px 0;font-size:12px}
 .footer-row{display:flex;justify-content:space-between;gap:25px;align-items:flex-start}
 .footer strong{color:#fff}
+/* Donation platform cards: a receipt route block per country, then bank transfer + QR */
+.platform{display:flex;flex-direction:column;scroll-margin-top:100px}
+.route{background:var(--green-bg);border:1px solid #cfe69c;border-radius:16px;padding:18px;margin-top:14px}
+.route h4{margin:10px 0 4px}
+.route p{font-size:14px;margin:0 0 14px}
+.wire{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-top:auto;padding-top:20px;border-top:1px solid var(--line)}
+.platform .route:last-of-type{margin-bottom:20px}
+.wire b{display:block;font-size:14px;margin-bottom:4px}
+.wire p{font-size:13px;margin:0 0 8px}
+.text-link{font-size:14px;font-weight:800;color:var(--navy)}
+.advanced a{color:var(--navy);font-weight:700}
 .rtl{direction:rtl;font-family:Arial,"Noto Sans Hebrew",sans-serif}
 .mono{font-variant-numeric:tabular-nums}
 @media(max-width:1100px){
@@ -216,7 +227,7 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
   .hero-actions .btn{width:100%}
   .detail{grid-template-columns:1fr auto}
   .detail .k{grid-column:1/-1}
-  .qr-row{align-items:flex-start;flex-direction:column}
+  .qr-row,.wire{align-items:flex-start;flex-direction:column}
 }
 </style>
 </head>
@@ -245,20 +256,20 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
     <div class="hero-grid">
       <div>
         <div class="entity">Hatzolah Air (R.A.) • Amuta 580731198</div>
-        <div class="kicker">Choose the receipt you need</div>
+        <div class="kicker">Ways to donate</div>
         <h1>Support Hatzolah Air. Donate the way that works for you.</h1>
-        <p class="lead">Choose the tax receipt you need: Israeli Section 46 or U.S. 501(c)(3). Each section then shows the available payment methods and donation routes.</p>
+        <p class="lead">Choose the giving platform you use, then choose the tax receipt you need.</p>
         <div class="hero-actions">
-          <a class="btn btn-red" href="#israel">Israeli tax receipt</a>
-          <a class="btn btn-white" href="#usa">U.S. 501(c)(3) receipt</a>
+          <a class="btn btn-red" href="#jgive">Donate through JGive</a>
+          <a class="btn btn-white" href="#israelgives">Donate through IsraelGives / America Gives</a>
         </div>
       </div>
       <aside class="hero-card">
         <h3>Not sure which option to choose?</h3>
-        <p>Start with the tax receipt you need. Then choose your preferred payment method.</p>
+        <p>Start with the platform you already use. Both offer an Israeli or a U.S. tax receipt.</p>
         <div class="mini">
-          <div><b>Israeli taxpayer?</b><br>Choose the Israeli Section 46 path. Direct donation to Hatzolah Air is listed first.</div>
-          <div><b>U.S. taxpayer?</b><br>Choose the U.S. 501(c)(3) path via JGive USD or America Gives.</div>
+          <div><b>Israeli taxpayer?</b><br>Donate in ILS on either platform to receive an Israeli Section 46 receipt.</div>
+          <div><b>U.S. taxpayer?</b><br>Donate in USD through JGive or America Gives to receive a U.S. 501(c)(3) receipt.</div>
         </div>
       </aside>
     </div>
@@ -267,93 +278,80 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
 
 <div class="wrap">
   <div class="decision">
-    <a href="#israel"><div class="decision-card"><span class="receipt-badge receipt-isr">🇮🇱 Israeli receipt</span><strong>I need a Section 46 receipt</strong><span>Best starting point: donate directly to Hatzolah Air in ILS.</span></div></a>
-    <a href="#usa"><div class="decision-card"><span class="receipt-badge receipt-us">🇺🇸 U.S. receipt</span><strong>I need a 501(c)(3) receipt</strong><span>JGive USD or America Gives / IsraelGives.</span></div></a>
-    <a href="#direct"><div class="decision-card"><span class="receipt-badge receipt-direct">✈ Direct</span><strong>I want to give directly</strong><span>Direct ILS page, Hatzolah Air bank account, or check.</span></div></a>
+    <a href="#jgive"><div class="decision-card"><span class="receipt-badge receipt-us">JGive</span><strong>Donate through JGive</strong><span>Israeli Section 46 or U.S. 501(c)(3) receipt.</span></div></a>
+    <a href="#israelgives"><div class="decision-card"><span class="receipt-badge receipt-isr">IsraelGives / America Gives</span><strong>Donate through IsraelGives</strong><span>ILS, USD or GBP. Israeli or U.S. receipt.</span></div></a>
+    <a href="#large-gifts"><div class="decision-card"><span class="receipt-badge receipt-direct">🏦 Bank transfer</span><strong>Making a larger gift?</strong><span>Split it into several card transactions or transfer by bank.</span></div></a>
   </div>
 </div>
 
 <main>
 
-
-<section class="section" id="israel">
+<section class="section" id="donate">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <span class="receipt-badge receipt-isr">🇮🇱 Israeli Section 46</span>
-        <h2 style="margin-top:12px">Need an Israeli tax-deductible receipt?</h2>
-        <p>For Israeli Section 46 giving, direct donation to Hatzolah Air is the primary option. JGive and IsraelGives are also available as alternative Israeli donation routes.</p>
+        <h2>Ways to donate</h2>
+        <p>JGive and IsraelGives / America Gives both provide routes for Israeli and U.S. tax-deductible giving, including bank-transfer options when preferred.</p>
       </div>
     </div>
 
     <div class="grid-2">
-      <article class="card featured">
-        <div class="label">Option 1 • Direct to Hatzolah Air</div>
-        <h3>Donate directly in ILS</h3>
-        <p>Donate directly to Hatzolah Air in Israeli shekels and receive an Israeli Section 46 tax receipt.</p>
-        <div class="method-list">
-          <div class="method"><div class="icon">💳</div><div><b>Credit card</b><small>Use Hatzolah Air’s dedicated direct donation page.</small></div></div>
-          <div class="method"><div class="icon">🏦</div><div><b>Direct bank transfer</b><small>Transfer directly to Hatzolah Air’s Israeli Mizrahi-Tefahot account.</small></div></div>
-          <div class="method"><div class="icon">📬</div><div><b>Check</b><small>Mail a check directly to Hatzolah Air in Israel.</small></div></div>
-        </div>
-        <div class="qr-row">
-          <a class="btn btn-red" href="https://mrng.to/SVpPc5lNal" target="_blank" rel="noopener">Donate directly in ILS</a>
-          <img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAAFKAQAAAABTUiuoAAACFUlEQVR4nO3bQarbMBSF4f9WggxlyALeUuSdlS6pO7CXkgUUrGHA5nQg2y/hQeukOHHh3kkS5xscMJaupMTExuq/bZXg1KlTp06d7kltrgh9A/TNZFCWy+3uAZw+QrMkaQD7PgCUk6wlSJJ0T/cJ4HRLxfm1NJB/ru8EooBBGHcN4PRfaN8E1eHwTQGcbqfSMJl0WWerVwdw+odaRsIkoACkMUISBnC7dn57Vqcz7c3MrAFry0nWlggw1ZbwFQGcbqn6bN1tP00muNr8vO0dwOkDlNqjzx180HxtCFJHkLqFqHt7VqfLrSCIrHG+UdIIpPGOvD2r04WmEXqL0H8s66t8iahLI9a+IIDTDVXnLSMBpF+RPEyR3AGkMRopyPYM4PQZOpm6ErG2nAQEQYlIw6sCOP17zeut3E1Y1rQsv5jivPJiitozgNPnesL6sUsSpLFOWXVCy95lHIuWON+ofIm1MSQPoK4OjPsHcLqhPoc+E8WAdLXabwBYHs74SHgUuu5lqJ6TzLuDJULuwNZF1wGyOq308+y4NoH9h2pPWL9tdw/gdFOtPSFAOQMEWb4YN3sZewZw+kyXsRxozb/LoO7Lfz5gB8rqdK08TLZs6AapS1f/Fc1haPxypZxleThjWUDf+s7TcejXs+N6vjVCb9Q+cdcATh+nN2fHBJk1k9UdjB/NawI43VLm/1pw6tSpU6f/Ef0NXxL1ZUAfGUUAAAAASUVORK5CYII=" alt="QR code to direct Hatzolah Air ILS donation page"/>
+      <article class="card platform" id="jgive">
+        <div class="label">JGive</div>
+        <h3>Donate through JGive</h3>
+        <p>A convenient route for donors who already use JGive. Choose the receipt route that fits your needs.</p>
 
+        <div class="route">
+          <span class="receipt-badge receipt-isr">🇮🇱 Donate in Israel</span>
+          <h4>Israeli Section 46</h4>
+          <p>Donate in ILS through JGive to receive an Israeli Section 46 receipt.</p>
+          <a class="btn btn-red" href="https://www.jgive.com/new/he/ils/collect/donation-targets/166518/amount" target="_blank" rel="noopener">Donate in Israel (ILS)</a>
         </div>
-        <div class="good"><b>Receipt:</b> Israeli Section 46 receipt from Hatzolah Air.</div>
-      </article>
 
-      <article class="card">
-        <div class="label">Direct bank transfer • Israel</div>
-        <h3>Hatzolah Air bank account</h3>
-        <p>Transfer directly to the amuta and receive an Israeli Section 46 receipt.</p>
-        <div class="details">
-          <div class="detail"><div class="k">Account name</div><div class="v">הצלה אייר (ע"ר)</div><button class="copy" data-copy='הצלה אייר (ע"ר)'>Copy</button></div>
-          <div class="detail"><div class="k">Bank</div><div class="v">Mizrahi-Tefahot</div><button class="copy" data-copy="Mizrahi-Tefahot">Copy</button></div>
-          <div class="detail"><div class="k">Branch</div><div class="v mono">454</div><button class="copy" data-copy="454">Copy</button></div>
-          <div class="detail"><div class="k">Account</div><div class="v mono">278457</div><button class="copy" data-copy="278457">Copy</button></div>
-          <div class="detail"><div class="k">IBAN</div><div class="v mono">IL31 0204 5400 0000 0278 457</div><button class="copy" data-copy="IL310204540000000278457">Copy</button></div>
-          <div class="detail"><div class="k">SWIFT / BIC</div><div class="v mono">MIZBILIT</div><button class="copy" data-copy="MIZBILIT">Copy</button></div>
+        <div class="route">
+          <span class="receipt-badge receipt-us">🇺🇸 Donate in U.S.</span>
+          <h4>U.S. 501(c)(3)</h4>
+          <p>Use JGive's U.S. giving route for a U.S. tax-deductible receipt issued by the applicable 501(c)(3) charity.</p>
+          <a class="btn btn-red" href="https://www.jgive.com/new/en/usd/collect/donation-targets/166518/amount" target="_blank" rel="noopener">Donate in U.S. (USD)</a>
         </div>
-      </article>
-    </div>
 
-    <div class="grid-3" style="margin-top:20px">
-      <article class="card">
-        <div class="label">Direct check • Israel</div>
-        <h3>Mail a check to Hatzolah Air</h3>
-        <p>Checks sent directly to Hatzolah Air are eligible for an Israeli Section 46 receipt.</p>
-        <div class="check-address">
-          <strong>Payable to:</strong><br>
-          Hatzolah Air (R.A.) / <span class="rtl">הצלה אייר (ע"ר)</span><br><br>
-          <strong>Hatzolah Air mailing address:</strong><br>
-          <span class="rtl">הצלה אייר<br>הזורעים 34<br>אפרת 9045665<br>ישראל</span>
+        <div class="wire">
+          <div>
+            <b>🏦 Bank transfer / wire</b>
+            <p>Bank-transfer options are available through the JGive giving flow and U.S. instructions.</p>
+            <a class="text-link" href="https://www.jgive.com/new/en/usd/collect/donation-targets/166518/amount" target="_blank" rel="noopener">Open JGive USD donation ↗</a>
+          </div>
+          <a href="https://www.jgive.com/new/he/ils/collect/donation-targets/166518/amount" target="_blank" rel="noopener"><img class="qr" src="assets/qr/jgive.png" alt="QR code to the Hatzolah Air JGive donation page" width="108" height="108"/></a>
         </div>
       </article>
 
-      <article class="card">
-        <div class="label">Option 2 • IsraelGives</div>
-        <h3>IsraelGives — donate in ILS</h3>
-        <p>IsraelGives also supports Israeli Section 46 giving through its Israeli donation route.</p>
-        <div class="method-list">
-          <div class="method"><div class="icon">💳</div><div><b>Credit card</b><small>Secure online donation form.</small></div></div>
-          <div class="method"><div class="icon">P</div><div><b>PayPal</b><small>Available on the Hatzolah Air IsraelGives form.</small></div></div>
-          <div class="method"><div class="icon">🏦</div><div><b>Bank transfer</b><small>Available through the IsraelGives giving flow.</small></div></div>
-        </div>
-        <a class="btn btn-outline" href="https://secured.israelgives.org/pay/makedonation?AmutaGovId=580731198&MakeDonation=1&pp=1" target="_blank" rel="noopener">Donate through IsraelGives</a>
-      </article>
+      <article class="card platform" id="israelgives">
+        <div class="label">IsraelGives / America Gives</div>
+        <h3>Donate through IsraelGives / America Gives</h3>
+        <p>Choose ILS for an Israeli receipt or USD for a U.S. tax-deductible contribution. GBP giving is also available through this route.</p>
 
-      <article class="card">
-        <div class="label">Option 3 • JGive</div>
-        <h3>JGive — donate in ILS</h3>
-        <p>Select <strong>₪ ILS</strong> on Hatzolah Air’s JGive page to receive an Israeli Section 46 receipt.</p>
-        <div class="method-list">
-          <div class="method"><div class="icon">💳</div><div><b>Credit card</b><small>Online donation with digital receipt.</small></div></div>
-          <div class="method"><div class="icon">🏦</div><div><b>Bank transfer</b><small>Available through JGive’s transfer flow.</small></div></div>
-          <div class="method"><div class="icon">📬</div><div><b>Check</b><small>Available according to JGive’s donation instructions.</small></div></div>
+        <div class="route">
+          <span class="receipt-badge receipt-isr">🇮🇱 Donate in Israel</span>
+          <h4>Israeli Section 46</h4>
+          <p>Donate through IsraelGives in ILS to receive an Israeli Section 46 receipt.</p>
+          <a class="btn btn-red" href="https://secured.israelgives.org/pay/makedonation?AmutaGovId=580731198&amp;MakeDonation=1&amp;pp=1&amp;currency=2" target="_blank" rel="noopener">Donate in Israel (ILS)</a>
         </div>
-        <a class="btn btn-outline" href="https://www.jgive.com/new/he/ils/donation-targets/166518" target="_blank" rel="noopener">Donate through JGive</a>
+
+        <div class="route">
+          <span class="receipt-badge receipt-us">🇺🇸 Donate in U.S.</span>
+          <h4>U.S. 501(c)(3)</h4>
+          <p>U.S. donations receive a U.S. tax-deductible receipt through America Gives, Inc.</p>
+          <a class="btn btn-red" href="https://secured.israelgives.org/pay/makedonation?AmutaGovId=580731198&amp;MakeDonation=1&amp;pp=1&amp;currency=2" target="_blank" rel="noopener">Donate in U.S. (USD)</a>
+        </div>
+
+        <div class="wire">
+          <div>
+            <b>🏦 Bank transfer / wire</b>
+            <p>Wire and bank-transfer instructions are available through the America Gives / IsraelGives route.</p>
+            <a class="text-link" href="https://help.israeltoremet.org/en/articles/3656560-donating-by-wire-transfer" target="_blank" rel="noopener">Wire / bank transfer instructions ↗</a>
+          </div>
+          <a href="https://secured.israelgives.org/pay/makedonation?AmutaGovId=580731198&amp;MakeDonation=1&amp;pp=1&amp;currency=2" target="_blank" rel="noopener"><img class="qr" src="assets/qr/israelgives.png" alt="QR code to the Hatzolah Air IsraelGives donation page" width="108" height="108"/></a>
+        </div>
       </article>
     </div>
   </div>
@@ -364,88 +362,13 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
   <img src="assets/photos/flight-day/patient-transfer.jpg" alt="Hatzolah Air volunteers transferring a patient to the helicopter" loading="lazy" width="1600" height="1200"/>
 </figure>
 
-<section class="section alt" id="usa">
+<section class="section alt" id="large-gifts">
   <div class="wrap">
-    <div class="section-head">
-      <div>
-        <span class="receipt-badge receipt-us">🇺🇸 U.S. 501(c)(3)</span>
-        <h2 style="margin-top:12px">Need a U.S. tax-deductible receipt?</h2>
-        <p>You have two established routes. Both ultimately support Hatzolah Air Israel, but the U.S. receipt is issued by a U.S. 501(c)(3) partner.</p>
-      </div>
-    </div>
-
-    <div class="us-grid">
-      <article class="card featured">
-        <div class="label">U.S. Route A • JGive</div>
-        <h3>JGive — select USD</h3>
-        <p>JGive states that donations made in <strong>U.S. dollars</strong> receive a U.S. 501(c)(3) tax-deductible receipt issued by <strong>Friends of Asor Fund USA, Inc.</strong></p>
-        <div class="us-methods">
-          <div class="us-method"><b>💳 Credit card</b><span>Minimum $10</span></div>
-          <div class="us-method"><b>🏦 ACH</b><span>Minimum $10</span></div>
-          <div class="us-method"><b>↗ Wire transfer</b><span>Minimum $36; JGive emails U.S. bank details + WT code</span></div>
-          <div class="us-method"><b>📬 Check</b><span>Minimum $36; first register donation and obtain WT code</span></div>
-        </div>
-        <div class="good"><b>Receipt:</b> U.S. 501(c)(3) receipt from Friends of Asor Fund USA, Inc. You must select <strong>USD</strong> before completing the donation.</div>
-        <div style="margin-top:18px"><a class="btn btn-red" href="https://www.jgive.com/new/he/ils/donation-targets/166518" target="_blank" rel="noopener">Use JGive — choose USD</a></div>
-      </article>
-
-      <article class="card">
-        <div class="label">U.S. Route B • America Gives / IsraelGives</div>
-        <h3>America Gives, Inc.</h3>
-        <p>America Gives is IsraelGives’ U.S. 501(c)(3) partner. U.S. donors can support Hatzolah Air by online payment, bank transfer or check.</p>
-
-        <div class="us-methods">
-          <div class="us-method"><b>💳 Credit card</b><span>Use Hatzolah Air’s IsraelGives donation form</span></div>
-          <div class="us-method"><b>🅿 PayPal</b><span>Available through the same secure form</span></div>
-          <div class="us-method"><b>🏦 ACH / bank</b><span>Online ACH is supported for U.S. donations where offered</span></div>
-          <div class="us-method"><b>↗ Wire transfer</b><span>Directly to America Gives U.S. account</span></div>
-          <div class="us-method"><b>📬 Check</b><span>Mail to America Gives in New York</span></div>
-          <div class="us-method"><b>📈 Stocks / securities</b><span>Also supported through IsraelGives / America Gives</span></div>
-        </div>
-
-        <div style="margin-top:18px"><a class="btn btn-outline" href="https://secured.israelgives.org/pay/makedonation?AmutaGovId=580731198&MakeDonation=1&pp=1" target="_blank" rel="noopener">Donate online via America Gives / IsraelGives</a></div>
-      </article>
-    </div>
-
-    <div class="grid-2" style="margin-top:20px">
-      <article class="card">
-        <div class="label">America Gives • U.S. bank transfer / wire</div>
-        <h3>Wire to America Gives</h3>
-        <div class="details">
-          <div class="detail"><div class="k">Account owner</div><div class="v">America Gives, Inc.</div><button class="copy" data-copy="America Gives, Inc.">Copy</button></div>
-          <div class="detail"><div class="k">Account number</div><div class="v mono">761028581678695</div><button class="copy" data-copy="761028581678695">Copy</button></div>
-          <div class="detail"><div class="k">Routing number</div><div class="v mono">121145433</div><button class="copy" data-copy="121145433">Copy</button></div>
-          <div class="detail"><div class="k">Bank</div><div class="v">Column N.A.</div><button class="copy" data-copy="Column N.A.">Copy</button></div>
-          <div class="detail"><div class="k">Bank address</div><div class="v">1 Letterman Drive, Building A, Suite A4-700, San Francisco, CA 94129</div><button class="copy" data-copy="1 Letterman Drive, Building A, Suite A4-700, San Francisco, CA 94129">Copy</button></div>
-          <div class="detail"><div class="k">Designation / memo</div><div class="v">580731198 — Hatzolah Air</div><button class="copy" data-copy="580731198 — Hatzolah Air">Copy</button></div>
-        </div>
-        <div class="note">The Hatzolah Air amuta number in the memo tells America Gives which Israeli nonprofit the gift is designated for.</div>
-      </article>
-
-      <article class="card">
-        <div class="label">America Gives • U.S. check</div>
-        <h3>Mail a U.S. check</h3>
-        <div class="check-address">
-          <strong>Payable to:</strong> America Gives<br><br>
-          <strong>Memo / designation:</strong> 580731198 — Hatzolah Air<br><br>
-          <strong>Mail to:</strong><br>
-          America Gives<br>
-          228 Park Ave S #71410<br>
-          New York, NY 10003-1502
-        </div>
-        <div class="good"><b>Receipt:</b> U.S. tax-deductible receipt through America Gives, Inc. (EIN 26-3383926).</div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section alt">
-  <div class="wrap">
-    <div class="divider-title"><h3 style="margin:0;font-size:22px">Other ways to give</h3></div>
+    <div class="divider-title"><h3 style="margin:0;font-size:22px">Good to know</h3></div>
     <div class="advanced">
-      <div class="box"><b>Stocks & securities</b><p>IsraelGives/America Gives and JGive both support advanced giving routes for securities.</p></div>
-      <div class="box"><b>Donor-Advised Funds</b><p>U.S. donors can use eligible DAF routes through the U.S. partner organizations.</p></div>
-      <div class="box"><b>Other countries</b><p>IsraelGives offers local tax-receipt routes in the U.K., Canada, France/EU, Australia and additional jurisdictions.</p></div>
+      <div class="box"><b>Card transaction limit</b><p>For card security and processing reasons, some card donations may be limited to approximately ₪50,000 per transaction. Larger gifts can be split into multiple transactions or made by bank transfer.</p></div>
+      <div class="box"><b>Other countries</b><p>America Gives / IsraelGives may also offer tax-receipted giving routes in other countries. Availability can change; contact us for the appropriate route.</p></div>
+      <div class="box"><b>Need help?</b><p>For assistance with a donation, bank transfer, or the correct tax-receipt route, contact Dr. Aaron Adler at <a href="mailto:aaron.adler@hatzolahair.org">aaron.adler@hatzolahair.org</a> or <a href="tel:+972548187101">+972 54 818 7101</a>.</p></div>
     </div>
   </div>
 </section>

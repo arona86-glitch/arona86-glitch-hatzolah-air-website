@@ -181,6 +181,10 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
 .wire p{font-size:13px;margin:0 0 8px}
 .text-link{font-size:14px;font-weight:800;color:var(--navy)}
 .advanced a{color:var(--navy);font-weight:700}
+.hint{font-size:13px!important;color:#405f00!important;margin-top:-8px!important}
+.bank{margin-top:20px;scroll-margin-top:100px}
+.bank-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.bank .details{margin-top:0;border-top:0;padding-top:0}
 .rtl{direction:rtl;font-family:Arial,"Noto Sans Hebrew",sans-serif}
 .mono{font-variant-numeric:tabular-nums}
 @media(max-width:1100px){
@@ -195,7 +199,7 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
   .nav-links .nav-cta{text-align:center;padding:11px 14px}
 }
 @media(max-width:900px){
-  .hero-grid,.mission-grid,.us-grid{grid-template-columns:1fr}
+  .hero-grid,.mission-grid,.us-grid,.bank-grid{grid-template-columns:1fr}
   .hero{background:
     linear-gradient(180deg, rgba(7,20,43,.9) 0%, rgba(12,29,60,.78) 55%, rgba(12,29,60,.6) 100%),
     url("assets/photos/flight-day/helicopter-herzog-pad.jpg") 68% center / cover no-repeat}
@@ -266,7 +270,7 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
       </div>
       <aside class="hero-card">
         <h3>Not sure which option to choose?</h3>
-        <p>Start with the platform you already use. Both offer an Israeli or a U.S. tax receipt.</p>
+        <p>Start with the platform you already use. Both offer an Israeli or a U.S. tax receipt. Israeli donors can also transfer directly to our bank account.</p>
         <div class="mini">
           <div><b>Israeli taxpayer?</b><br>Donate in ILS on either platform to receive an Israeli Section 46 receipt.</div>
           <div><b>U.S. taxpayer?</b><br>Donate in USD through JGive or America Gives to receive a U.S. 501(c)(3) receipt.</div>
@@ -280,7 +284,7 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
   <div class="decision">
     <a href="#jgive"><div class="decision-card"><span class="receipt-badge receipt-us">JGive</span><strong>Donate through JGive</strong><span>Israeli Section 46 or U.S. 501(c)(3) receipt.</span></div></a>
     <a href="#israelgives"><div class="decision-card"><span class="receipt-badge receipt-isr">IsraelGives / America Gives</span><strong>Donate through IsraelGives</strong><span>ILS, USD or GBP. Israeli or U.S. receipt.</span></div></a>
-    <a href="#large-gifts"><div class="decision-card"><span class="receipt-badge receipt-direct">🏦 Bank transfer</span><strong>Making a larger gift?</strong><span>Split it into several card transactions or transfer by bank.</span></div></a>
+    <a href="#bank"><div class="decision-card"><span class="receipt-badge receipt-direct">🏦 Direct bank transfer</span><strong>Transfer directly to Hatzolah Air</strong><span>Israeli bank account. No limit, no platform fees.</span></div></a>
   </div>
 </div>
 
@@ -334,6 +338,7 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
           <span class="receipt-badge receipt-isr">🇮🇱 Donate in Israel</span>
           <h4>Israeli Section 46</h4>
           <p>Donate through IsraelGives in ILS to receive an Israeli Section 46 receipt.</p>
+          <p class="hint">The form opens in USD. Switch the currency to <strong>₪ ILS</strong> on the form.</p>
           <a class="btn btn-red" href="https://secured.israelgives.org/pay/makedonation?AmutaGovId=580731198&amp;MakeDonation=1&amp;pp=1&amp;currency=2" target="_blank" rel="noopener">Donate in Israel (ILS)</a>
         </div>
 
@@ -354,6 +359,25 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
         </div>
       </article>
     </div>
+
+    <article class="card featured bank" id="bank">
+      <div class="bank-grid">
+        <div>
+          <div class="label">Direct bank transfer • Israel</div>
+          <h3>Transfer directly to Hatzolah Air</h3>
+          <p>Transfer directly to the amuta's Israeli bank account and receive an Israeli Section 46 receipt. There is no per-transaction limit and no platform fees, so this is the best route for larger gifts.</p>
+          <div class="good"><b>Receipt:</b> Israeli Section 46 receipt from Hatzolah Air. After transferring, contact us so we can issue your receipt.</div>
+        </div>
+        <div class="details">
+          <div class="detail"><div class="k">Account name</div><div class="v">הצלה אייר (ע"ר)</div><button class="copy" data-copy='הצלה אייר (ע"ר)'>Copy</button></div>
+          <div class="detail"><div class="k">Bank</div><div class="v">Mizrahi-Tefahot</div><button class="copy" data-copy="Mizrahi-Tefahot">Copy</button></div>
+          <div class="detail"><div class="k">Branch</div><div class="v mono">454</div><button class="copy" data-copy="454">Copy</button></div>
+          <div class="detail"><div class="k">Account</div><div class="v mono">278457</div><button class="copy" data-copy="278457">Copy</button></div>
+          <div class="detail"><div class="k">IBAN</div><div class="v mono">IL31 0204 5400 0000 0278 457</div><button class="copy" data-copy="IL310204540000000278457">Copy</button></div>
+          <div class="detail"><div class="k">SWIFT / BIC</div><div class="v mono">MIZBILIT</div><button class="copy" data-copy="MIZBILIT">Copy</button></div>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -366,7 +390,7 @@ h1{font-size:clamp(43px,6.3vw,76px);line-height:.98;letter-spacing:-.048em;margi
   <div class="wrap">
     <div class="divider-title"><h3 style="margin:0;font-size:22px">Good to know</h3></div>
     <div class="advanced">
-      <div class="box"><b>Card transaction limit</b><p>For card security and processing reasons, some card donations may be limited to approximately ₪50,000 per transaction. Larger gifts can be split into multiple transactions or made by bank transfer.</p></div>
+      <div class="box"><b>Card transaction limit</b><p>For card security and processing reasons, some card donations may be limited to approximately ₪50,000 per transaction. Larger gifts can be split into multiple transactions or made by bank transfer, including <a href="#bank">directly to Hatzolah Air</a>.</p></div>
       <div class="box"><b>Other countries</b><p>America Gives / IsraelGives may also offer tax-receipted giving routes in other countries. Availability can change; contact us for the appropriate route.</p></div>
       <div class="box"><b>Need help?</b><p>For assistance with a donation, bank transfer, or the correct tax-receipt route, contact Dr. Aaron Adler at <a href="mailto:aaron.adler@hatzolahair.org">aaron.adler@hatzolahair.org</a> or <a href="tel:+972548187101">+972 54 818 7101</a>.</p></div>
     </div>
